@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import NavigationScreens from './src/NavigationContainer/NavigationScreens';
 import {Provider} from 'react-redux';
-import {store} from './src/ReduxStore/store';
+import {store} from './src/Redux/ReduxStore/store';
 
 function App() {
   return (

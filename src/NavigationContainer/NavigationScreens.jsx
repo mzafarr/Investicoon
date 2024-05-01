@@ -1,9 +1,9 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import NewsScreen from '../StackScreens/TabNavigationScreen/NewsScreen';
+import SubscriptionScreen from '../StackScreens/TabNavigationScreen/SubscriptionScreen';
 import HomeScreen from '../StackScreens/TabNavigationScreen/HomeScreen';
-import DiscoverScreen from '../StackScreens/TabNavigationScreen/DiscoverScreen';
+import BotScreen from '../StackScreens/TabNavigationScreen/BotScreen';
 import ProfileScreen from '../StackScreens/TabNavigationScreen/ProfileScreen';
 import DetailsScreen from '../StackScreens/DetailScreen';
 
@@ -19,14 +19,14 @@ function TabNavigator() {
         options={{headerShown: false}}
       />
       <Tab.Screen
-        name="News"
+        name="Subscription"
         options={{headerShown: false}}
-        component={NewsScreen}
+        component={SubscriptionScreen}
       />
       <Tab.Screen
-        name="Discover"
+        name="AI Bot"
         options={{headerShown: false}}
-        component={DiscoverScreen}
+        component={BotScreen}
       />
       <Tab.Screen
         name="Account"
@@ -40,7 +40,7 @@ function TabNavigator() {
 // Define stack navigation
 function NavigationScreens() {
   return (
-    <Stack.Navigator initialRouteName='Tabs'>
+    <Stack.Navigator initialRouteName="Tabs">
       <Stack.Screen
         name="Tabs"
         options={{headerShown: false}}
