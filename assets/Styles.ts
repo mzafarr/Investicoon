@@ -1,15 +1,17 @@
 import {StyleSheet} from 'react-native';
 import Colors from './Colors';
+import {widthToDp} from '../src/utils/Responsive';
 
 export const defaultStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    padding: 16,
+    padding: widthToDp(5),
   },
   header: {
     fontSize: 40,
     fontWeight: '700',
+    color: Colors.dark,
   },
   pillButton: {
     padding: 10,

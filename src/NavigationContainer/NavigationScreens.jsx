@@ -6,6 +6,10 @@ import HomeScreen from '../StackScreens/TabNavigationScreen/HomeScreen';
 import BotScreen from '../StackScreens/TabNavigationScreen/BotScreen';
 import ProfileScreen from '../StackScreens/TabNavigationScreen/ProfileScreen';
 import DetailsScreen from '../StackScreens/DetailScreen';
+import SignUpScreen from '../StackScreens/AuthenticationScreen/SignUpScreen';
+import LoginScreen from '../StackScreens/AuthenticationScreen/LoginScreen';
+import OtpScreen from '../StackScreens/AuthenticationScreen/OtpScreen';
+import OnboardingScreen from '../StackScreens/OnboardingScreen/OnboardingScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,14 +44,34 @@ function TabNavigator() {
 // Define stack navigation
 function NavigationScreens() {
   return (
-    <Stack.Navigator initialRouteName="Tabs">
+    <Stack.Navigator initialRouteName="OnboardingScreen">
+      <Stack.Screen
+        name="OnboardingScreen"
+        options={{headerShown: false}}
+        component={OnboardingScreen}
+      />
+      <Stack.Screen
+        name="SignUpScreen"
+        options={{headerShown: false}}
+        component={SignUpScreen}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        options={{headerShown: false}}
+        component={LoginScreen}
+      />
+      <Stack.Screen
+        name="OtpScreen"
+        options={{headerShown: false}}
+        component={OtpScreen}
+      />
       <Stack.Screen
         name="Tabs"
         options={{headerShown: false}}
         component={TabNavigator}
       />
       <Stack.Screen
-        name="Details"
+        name="DetailsScreen"
         options={{headerShown: false}}
         component={DetailsScreen}
       />

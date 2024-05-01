@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, Text, Button, StyleSheet} from 'react-native';
 
-const DiscoverScreen = ({navigation}) => {
+const BotScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Discover Screen</Text>
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DiscoverScreen;
+export default BotScreen;

@@ -7,7 +7,7 @@ const HomeScreen = ({navigation}) => {
       <Text style={styles.title}>Home Screen</Text>
       <Button
         title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
+        onPress={() => navigation.navigate('Signup')}
       />
     </SafeAreaView>
   );
