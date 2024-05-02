@@ -23,57 +23,23 @@ function TabNavigator() {
           let iconName;
 
           if (route.name === 'Home') {
-            iconName = focused ? 'logout' : 'logout';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'ios-list' : 'ios-list-outline';
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Subscription') {
+            iconName = focused ? 'card' : 'card-outline';
+          } else if (route.name === 'AI Bot') {
+            iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+          } else {
+            iconName = focused ? 'person' : 'person-outline';
           }
-
-          // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        // options={{
-        //   tabBarIcon: ({color, size}) => (
-        //     <Icons name="home" size={35} color="black" />
-        //   ),
-        //   headerShown: false,
-        // }}
-      />
-      <Tab.Screen
-        name="Subscription"
-        // options={{
-        //   tabBarIcon: ({color, size}) => (
-        //     <Icons name="creditcard" size={35} color="black" />
-        //   ),
-        //   headerShown: false,
-        // }}
-        component={SubscriptionScreen}
-      />
-      <Tab.Screen
-        name="AI Bot"
-        // options={{
-        //   tabBarIcon: ({color, size}) => (
-        //     <Icons name="aliwangwang-o1" size={35} color="black" />
-        //   ),
-        //   headerShown: false,
-        // }}
-        component={BotScreen}
-      />
-      <Tab.Screen
-        name="Account"
-        // options={{
-        //   tabBarIcon: ({color, size}) => (
-        //     <Icons name="user" size={35} color="black" />
-        //   ),
-        //   headerShown: false,
-        // }}
-        component={ProfileScreen}
-      />
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Subscription" component={SubscriptionScreen} />
+      <Tab.Screen name="AI Bot" component={BotScreen} />
+      <Tab.Screen name="Account" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
