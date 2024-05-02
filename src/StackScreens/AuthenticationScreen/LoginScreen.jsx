@@ -13,6 +13,7 @@ import {
 import Colors from '../../../assets/Colors';
 import {defaultStyles} from '../../../assets/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
 
 const SignInType = {
   Phone: 0,
@@ -23,8 +24,9 @@ const SignInType = {
 
 const LoginScreen = () => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 80 : 0;
-
+  const navigation = useNavigation();
   const onSignIn = async () => {
+    navigation.navigate('OtpScreen');
     console.log('email', email);
   };
   const [email, setEmail] = useState('');

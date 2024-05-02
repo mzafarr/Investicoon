@@ -44,7 +44,7 @@ const OnboardingScreen = () => {
               style={{
                 color: 'white',
                 fontSize: widthToDp(6),
-                paddingHorizontal: widthToDp(2),
+                paddingHorizontal: widthToDp(7),
                 fontWeight: '500',
               }}>
               Log in
@@ -62,7 +62,7 @@ const OnboardingScreen = () => {
               style={{
                 fontSize: widthToDp(6),
                 fontWeight: '500',
-                paddingHorizontal: widthToDp(2),
+                paddingHorizontal: widthToDp(7),
                 color: 'black',
               }}>
               Sign up

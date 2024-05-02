@@ -15,12 +15,12 @@ import {
 } from 'react-native-confirmation-code-field';
 import Colors from '../../../assets/Colors';
 import {defaultStyles} from '../../../assets/Styles';
+import {useNavigation} from '@react-navigation/native';
 const CELL_COUNT = 6;
 
 const OtpScreen = () => {
   const [code, setCode] = useState('');
-  //   const { signIn } = useSignIn();
-  //   const { signUp, setActive } = useSignUp();
+  const navigation = useNavigation();
 
   const ref = useBlurOnFulfill({value: code, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -30,9 +30,7 @@ const OtpScreen = () => {
 
   useEffect(() => {
     if (code.length === 6) {
-      if (signin === 'true') {
-      } else {
-      }
+      navigation.navigate('Tabs');
     }
   }, [code]);
 
