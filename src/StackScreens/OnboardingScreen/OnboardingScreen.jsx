@@ -37,14 +37,15 @@ const OnboardingScreen = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate('LoginScreen')}
             style={{
-              padding: widthToDp(2),
-              borderRadius: 10,
+              backgroundColor: 'white',
+              padding: widthToDp(3),
+              borderRadius: widthToDp(10),
             }}>
             <Text
               style={{
-                color: 'white',
+                color: Colors.primary,
                 fontSize: widthToDp(6),
-                paddingHorizontal: widthToDp(7),
+                paddingHorizontal: widthToDp(9),
                 fontWeight: '500',
               }}>
               Log in
@@ -54,16 +55,16 @@ const OnboardingScreen = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate('SignUpScreen')}
             style={{
-              backgroundColor: 'white',
-              padding: widthToDp(2),
-              borderRadius: 10,
+              backgroundColor: Colors.primary,
+              padding: widthToDp(3),
+              borderRadius: widthToDp(10),
             }}>
             <Text
               style={{
                 fontSize: widthToDp(6),
                 fontWeight: '500',
-                paddingHorizontal: widthToDp(7),
-                color: 'black',
+                paddingHorizontal: widthToDp(9),
+                color: 'white',
               }}>
               Sign up
             </Text>

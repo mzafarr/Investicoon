@@ -11,17 +11,18 @@ import {
 } from 'react-native';
 import {defaultStyles} from '../../../assets/Styles';
 import Colors from '../../../assets/Colors';
-// import {Link} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {widthToDp} from '../../utils/Responsive';
 
 const SignUpScreen = () => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 0 : 0;
-
+  const navigation = useNavigation();
   const onSignup = async () => {
     console.log('email', email);
   };
   const [email, setEmail] = useState('');
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, paddingTop: widthToDp(15)}}>
       <KeyboardAvoidingView
         style={{flex: 1}}
         behavior="padding"
@@ -41,7 +42,7 @@ const SignUpScreen = () => {
             />
           </View>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
             <Text style={defaultStyles.textLink}>
               Already have an account? Log in
             </Text>
@@ -55,7 +56,7 @@ const SignUpScreen = () => {
               email !== '' ? styles.enabled : styles.disabled,
               {marginBottom: 20},
             ]}
-            onPress={onSignup}>
+            onPress={() => navigation.navigate('OtpScreen')}>
             <Text style={defaultStyles.buttonText}>Sign up</Text>
           </TouchableOpacity>
         </View>

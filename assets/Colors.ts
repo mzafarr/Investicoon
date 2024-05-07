@@ -1,8 +1,10 @@
 export default {
-  primary: '#3D38ED',
+  primary: '#5EC3C8',
   primaryMuted: '#C9C8FA',
-  background: '#F5F5F5',
+  background: '#373737',
   dark: '#141518',
   gray: '#626D77',
   lightGray: '#D8DCE2',
+  white: '#fff',
+  backgroundColor: '#373737',
 };

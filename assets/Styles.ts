@@ -9,9 +9,9 @@ export const defaultStyles = StyleSheet.create({
     padding: widthToDp(5),
   },
   header: {
-    fontSize: 40,
+    fontSize: widthToDp(11),
     fontWeight: '700',
-    color: Colors.dark,
+    color: Colors.white,
   },
   pillButton: {
     padding: 10,
@@ -28,7 +28,7 @@ export const defaultStyles = StyleSheet.create({
   descriptionText: {
     fontSize: 18,
     marginTop: 20,
-    color: Colors.gray,
+    color: Colors.lightGray,
   },
   buttonText: {
     color: '#fff',

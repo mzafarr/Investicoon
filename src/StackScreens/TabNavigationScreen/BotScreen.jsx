@@ -1,5 +1,6 @@
 import React from 'react';
 import {SafeAreaView, Text, Button, StyleSheet} from 'react-native';
+import Colors from '../../../assets/Colors';
 
 const BotScreen = ({navigation}) => {
   return (
@@ -18,12 +19,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.backgroundColor,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: Colors.white,
   },
 });
 

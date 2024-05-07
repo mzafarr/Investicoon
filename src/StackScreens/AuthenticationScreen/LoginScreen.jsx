@@ -31,7 +31,7 @@ const LoginScreen = () => {
   };
   const [email, setEmail] = useState('');
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={defaultStyles.container}>
       <KeyboardAvoidingView
         style={{flex: 1}}
         behavior="padding"
@@ -87,11 +87,10 @@ const LoginScreen = () => {
                 flexDirection: 'row',
                 gap: 16,
                 marginTop: 20,
-                backgroundColor: '#fff',
               },
             ]}>
-            <Icon name="google" size={24} color={'#000'} />
-            <Text style={[defaultStyles.buttonText, {color: '#000'}]}>
+            <Icon name="google" size={24} color={'#ffff'} />
+            <Text style={[defaultStyles.buttonText, {color: '#ffff'}]}>
               Continue with Google{' '}
             </Text>
           </TouchableOpacity>
@@ -104,11 +103,10 @@ const LoginScreen = () => {
                 flexDirection: 'row',
                 gap: 16,
                 marginTop: 20,
-                backgroundColor: '#fff',
               },
             ]}>
-            <Icon name="apple" size={24} color={'#000'} />
-            <Text style={[defaultStyles.buttonText, {color: '#000'}]}>
+            <Icon name="apple" size={24} color={'#fff'} />
+            <Text style={[defaultStyles.buttonText, {color: '#fff'}]}>
               Continue with Apple{' '}
             </Text>
           </TouchableOpacity>

@@ -11,6 +11,8 @@ import LoginScreen from '../StackScreens/AuthenticationScreen/LoginScreen';
 import OtpScreen from '../StackScreens/AuthenticationScreen/OtpScreen';
 import OnboardingScreen from '../StackScreens/OnboardingScreen/OnboardingScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Colors from '../../assets/Colors';
+import {widthToDp} from '../utils/Responsive';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,7 +20,20 @@ const Tab = createBottomTabNavigator();
 function TabNavigator() {
   return (
     <Tab.Navigator
+      sceneAnimationEnabled={true}
+      shifting={true}
       screenOptions={({route}) => ({
+        headerShown: false,
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        tabBarStyle: {
+          height: widthToDp(20),
+          paddingHorizontal: widthToDp(1),
+          paddingTop: 0,
+          backgroundColor: Colors.backgroundColor,
+          position: 'absolute',
+          borderTopWidth: 0,
+        },
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
 
@@ -33,13 +48,17 @@ function TabNavigator() {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: 'white',
       })}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Subscription" component={SubscriptionScreen} />
       <Tab.Screen name="AI Bot" component={BotScreen} />
-      <Tab.Screen name="Account" component={ProfileScreen} />
+      <Tab.Screen
+        name="Account"
+        component={ProfileScreen}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 }

@@ -77,11 +77,11 @@ const OtpScreen = () => {
           )}
         />
 
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text style={[defaultStyles.textLink]}>
             Already have an account? Log in
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );
