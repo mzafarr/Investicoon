@@ -2,21 +2,77 @@ import React, {useState} from 'react';
 import {
   SafeAreaView,
   Text,
+  View,
   Button,
   StyleSheet,
   TextInput,
   ScrollView,
+  Dimensions,
+  ColorValue,
 } from 'react-native';
 import Colors from '../../../assets/Colors';
 import {useStockApi} from '../../CustomHooks/useStockApi/useStockApi';
 import {heightToDp, widthToDp} from '../../utils/Responsive';
-// import {LineChart, LineChartBicolor} from 'react-native-gifted-charts';
-import {LineChart} from 'react-native-chart-kit';
-import {Dimensions} from 'react-native';
+// import {LineChart} from 'react-native-chart-kit';
+import {LineChart} from 'react-native-gifted-charts';
 const screenWidth = Dimensions.get('window').width;
 const HomeScreen = ({navigation}) => {
   const [cName, setcName] = useState('');
+  const ptData = [
+    {value: 160, date: '1 Apr 2022'},
+    {value: 180, date: '2 Apr 2022'},
+    {value: 190, date: '3 Apr 2022'},
+    {value: 180, date: '4 Apr 2022'},
+    {value: 140, date: '5 Apr 2022'},
+    {value: 145, date: '6 Apr 2022'},
+    {value: 160, date: '7 Apr 2022'},
+    {value: 200, date: '8 Apr 2022'},
 
+    {value: 220, date: '9 Apr 2022'},
+    {
+      value: 240,
+      date: '10 Apr 2022',
+      label: '10 Apr',
+      labelTextStyle: {color: 'lightgray', width: 60},
+    },
+    {value: 280, date: '11 Apr 2022'},
+    {value: 260, date: '12 Apr 2022'},
+    {value: 340, date: '13 Apr 2022'},
+    {value: 385, date: '14 Apr 2022'},
+    {value: 280, date: '15 Apr 2022'},
+    {value: 390, date: '16 Apr 2022'},
+
+    {value: 370, date: '17 Apr 2022'},
+    {value: 285, date: '18 Apr 2022'},
+    {value: 295, date: '19 Apr 2022'},
+    {
+      value: 300,
+      date: '20 Apr 2022',
+      label: '20 Apr',
+      labelTextStyle: {color: 'lightgray', width: 60},
+    },
+    {value: 280, date: '21 Apr 2022'},
+    {value: 295, date: '22 Apr 2022'},
+    {value: 260, date: '23 Apr 2022'},
+    {value: 255, date: '24 Apr 2022'},
+
+    {value: 190, date: '25 Apr 2022'},
+    {value: 220, date: '26 Apr 2022'},
+    {value: 205, date: '27 Apr 2022'},
+    {value: 230, date: '28 Apr 2022'},
+    {value: 210, date: '29 Apr 2022'},
+    {
+      value: 200,
+      date: '30 Apr 2022',
+      label: '30 Apr',
+      labelTextStyle: {color: 'lightgray', width: 60},
+    },
+    {value: 240, date: '1 May 2022'},
+    {value: 250, date: '2 May 2022'},
+    {value: 280, date: '3 May 2022'},
+    {value: 250, date: '4 May 2022'},
+    {value: 210, date: '5 May 2022'},
+  ];
   const {getStocks, getStocksTimePeriod} = useStockApi();
   function processData(inputData) {
     const timeSeries = inputData.data.time_series;
@@ -25,100 +81,103 @@ const HomeScreen = ({navigation}) => {
     for (const key in timeSeries) {
       if (timeSeries.hasOwnProperty(key)) {
         const price = timeSeries[key].price;
-        dataArray.push(price);
+        dataArray.push({value: price});
       }
     }
-
+    // console.log(dataArray);
     return dataArray;
   }
-  const result = processData(data);
-  const final = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        data: result,
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2, // optional
-      },
-    ],
-    propsForDots: {
-      r: '6',
-      strokeWidth: '2',
-      stroke: '#ffa726',
-    },
-  };
-  const chartConfig = {
-    scrollableInfoTextStyle: {
-      color: 'white',
-      marginHorizontal: 4,
-      flex: 1,
-      textAlign: 'center',
-    },
-    backgroundGradientFrom: '#1E2923',
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: '#08130D',
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
-  };
+  const giftedData = processData(data);
+  const [isPointerShown, setIsPointerShown] = useState(true);
+
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
+      <View
         style={{
-          height: 40,
-          borderColor: 'gray',
-          borderWidth: 1,
-          marginBottom: 10,
-          paddingHorizontal: 10,
-          color: Colors.white,
-        }}
-        onChangeText={e => setcName(e)}
-        value={cName}
-        placeholder="Company Name"
-      />
-      <Button title="Fetch Data" onPress={() => getStocks(cName)} />
-      {/* {result !== null &&
-        {
-           <LineChart
-          data={result}
-          spacing={22}
-          thickness={5}
-          color="red"
-          hideRules
-          hideDataPoints
-          xAxisThickness={0}
-          yAxisThickness={0}
-          highlightedRange={{
-            from: 5,
-            to: 12,
-            color: 'green',
-          }}
-          pressEnabled
-          arrowConfig={{
-            length: 10,
-            width: 10,
-            color: 'blue',
-          }}
-        /> 
-        }} */}
-      <ScrollView horizontal={true}>
+          paddingVertical: 100,
+          paddingLeft: 20,
+          backgroundColor: '#1C1C1C',
+        }}>
         <LineChart
-          data={final}
-          width={screenWidth}
-          height={heightToDp(30)}
-          chartConfig={chartConfig}
-          withInnerLines={false}
-          bezier
-          withDots={false}
-          withShadow
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
+          areaChart
+          data={giftedData}
+          rotateLabel
+          yAxisOffset={giftedData[0].value - 20}
+          width={widthToDp(100)}
+          hideDataPoints
+          spacing={10}
+          color="#00ff83"
+          thickness={2}
+          startFillColor="rgba(20,105,81,0.3)"
+          endFillColor="rgba(20,85,81,0.01)"
+          startOpacity={0.9}
+          endOpacity={0.2}
+          initialSpacing={0}
+          noOfSections={6}
+          yAxisColor="white"
+          yAxisThickness={0}
+          rulesType="solid"
+          rulesColor="gray"
+          yAxisTextStyle={{color: 'gray'}}
+          yAxisSide="right"
+          xAxisColor="lightgray"
+          pointerConfig={{
+            pointerStripHeight: 100,
+            pointerStripColor: 'lightgray',
+            pointerStripWidth: 2,
+            pointerStripHeight: 140,
+            pointerColor: 'lightgray',
+            radius: 6,
+            pointerLabelWidth: 100,
+            pointerLabelHeight: 80,
+            activatePointersOnLongPress: true,
+            autoAdjustPointerLabelPosition: false,
+            pointerLabelComponent: items => {
+              return (
+                console.log(Math.round(parseFloat(items[0].value) * 100) / 10),
+                (
+                  <View
+                    style={{
+                      height: 90,
+                      width: 100,
+                      justifyContent: 'center',
+                      marginTop: -30,
+                      marginLeft: -40,
+                    }}>
+                    {/* <Text
+                    style={{
+                      color: 'white',
+                      fontSize: 14,
+                      marginBottom: 6,
+                      textAlign: 'center',
+                    }}>
+                    {items[0].date}
+                  </Text> */}
+
+                    <View
+                      style={{
+                        paddingHorizontal: 14,
+                        paddingVertical: 6,
+                        borderRadius: 16,
+                        backgroundColor: 'white',
+                      }}>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                          color: 'black',
+                        }}>
+                        {'$' +
+                          Math.round(parseFloat(items[0].value) * 100) / 10}
+                      </Text>
+                    </View>
+                  </View>
+                )
+              );
+            },
           }}
         />
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -126,7 +185,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.backgroundColor,
   },
