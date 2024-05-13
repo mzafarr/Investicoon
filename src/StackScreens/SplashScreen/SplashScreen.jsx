@@ -6,53 +6,71 @@ import SplashScreen from 'react-native-splash-screen';
 import {useNavigation} from '@react-navigation/native';
 import {useStockApi} from '../../CustomHooks/useStockApi/useStockApi';
 import {useLocalStorage} from '../../CustomHooks/useLocalStorage/useLocalStorage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {
+  fetchDataStart,
+  fetchDataSuccess,
+  fetchDataFailure,
+} from '../../Redux/ReduxSlices/OneDaySlice';
+import {filterDataByHour} from '../../utils/TimeFunctions';
 
 const Splashscreen = () => {
   const {getStocks, getStocksTimePeriod, getCompanyInfo} = useStockApi();
-  const {saveDataToStorage, callApiAgain} = useLocalStorage();
-
+  const {saveDataToStorage, fetchDataFromStorage, callApiAgain} =
+    useLocalStorage();
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const fetchData = async () => {
     try {
-      const companies = ['Apple'];
-      // const companies = ['Apple', 'Microsoft', 'Tesla', 'Amazon', 'Meta'];
-
+      // const companies = ['Apple'];
+      dispatch(fetchDataStart());
+      const companies = ['Apple', 'Microsoft', 'Tesla', 'Amazon', 'Meta'];
+      const responses = [];
       for (const company of companies) {
-        const stocksData = await getStocks(company);
+        const stocksData = await getStocksTimePeriod(company, '1D');
+        console.log('stocksData', stocksData);
         if (stocksData) {
-          await saveDataToStorage(company, stocksData.data);
+          responses.push(stocksData);
         }
       }
-
-      // Hide splash screen and navigate away after fetching and saving data
+      console.log(responses);
+      await saveDataToStorage(responses);
+      dispatch(fetchDataSuccess(responses));
       SplashScreen.hide();
       navigation.navigate('Tabs');
     } catch (error) {
       console.error('Error fetching and saving data:', error);
+      dispatch(fetchDataFailure(error));
     }
   };
   useEffect(() => {
-    const checkAndUpdateData = async companyName => {
+    // AsyncStorage.clear();
+    const checkAndUpdateData = async () => {
       try {
-        const shouldCallAgain = await callApiAgain(companyName);
+        const shouldCallAgain = await callApiAgain();
         console.log('shouldCallAgain', shouldCallAgain);
         if (shouldCallAgain) {
           // Call API again and update data
           await fetchData();
         } else {
-          console.log(`Data for ${companyName} is up to date`);
-          console.log('splash off');
+          dispatch(fetchDataStart());
+          console.log(`Data is up to date`);
+          const response = await fetchDataFromStorage(); // Fetch data from storage
+          if (response) {
+            dispatch(fetchDataSuccess(response));
+          } else {
+            console.log('No data found in storage'); // Handle case where no data is found in storage
+          }
           SplashScreen.hide();
           navigation.navigate('Tabs');
         }
       } catch (error) {
-        console.error(
-          `Error checking and updating data for ${companyName}:`,
-          error,
-        );
+        dispatch(fetchDataFailure(error));
+        console.error(`Error checking and updating data `, error);
       }
     };
-    checkAndUpdateData('Apple');
+    checkAndUpdateData();
   }, []);
   return (
     <View style={styles.container}>

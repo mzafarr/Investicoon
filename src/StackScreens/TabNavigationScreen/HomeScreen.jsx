@@ -12,15 +12,17 @@ import Colors from '../../../assets/Colors';
 import {useStockApi} from '../../CustomHooks/useStockApi/useStockApi';
 import {heightToDp, widthToDp} from '../../utils/Responsive';
 import {LineChart} from 'react-native-gifted-charts';
+import HomeGraph from '../../Components/HomeGraphComponent/HomeGraph';
 const HomeScreen = ({navigation}) => {
   const [cName, setcName] = useState('');
-  const {getStocks, getStocksTimePeriod, getCompanyInfo, getStockSymbol} =
-    useStockApi();
+  const {getStocks} = useStockApi();
 
-  useEffect(() => {
-    // getCompanyInfo('microsoft');
-  }, []);
-  return <SafeAreaView style={styles.container}></SafeAreaView>;
+  useEffect(() => {}, []);
+  return (
+    <SafeAreaView style={styles.container}>
+      <HomeGraph />
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
