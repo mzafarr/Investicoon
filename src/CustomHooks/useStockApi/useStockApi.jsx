@@ -1,7 +1,29 @@
 import axios from 'axios';
 
 export const useStockApi = () => {
+  const getStockSymbol = async comapny => {
+    const options = {
+      method: 'GET',
+      url: 'https://real-time-finance-data.p.rapidapi.com/search',
+      params: {
+        query: comapny,
+        language: 'en',
+      },
+      headers: {
+        'X-RapidAPI-Key': '7feb43de13msh3d763dcb818324ap171020jsn45318599ce35',
+        'X-RapidAPI-Host': 'real-time-finance-data.p.rapidapi.com',
+      },
+    };
+    try {
+      const response = await axios.request(options);
+      console.log('sda', response?.data?.data?.stock[0]?.symbol);
+      return response?.data?.data?.stock[0]?.symbol || null;
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const getStocks = async companyName => {
+    // const companySymbol = await getStockSymbol(companyName);
     const options = {
       method: 'GET',
       url: 'https://real-time-finance-data.p.rapidapi.com/search',
@@ -17,17 +39,19 @@ export const useStockApi = () => {
 
     try {
       const response = await axios.request(options);
-      console.log(response.data?.data?.stock[0]);
+      console.log('API', response?.data?.data?.stock[0]?.symbol);
+      return response?.data;
     } catch (error) {
       console.error(error);
     }
   };
   const getStocksTimePeriod = async (companyName, timePeriod) => {
+    const companySymbol = await getStockSymbol(companyName);
     const options = {
       method: 'GET',
       url: 'https://real-time-finance-data.p.rapidapi.com/stock-time-series',
       params: {
-        symbol: companyName,
+        symbol: companySymbol,
         period: timePeriod,
         language: 'en',
       },
@@ -44,5 +68,28 @@ export const useStockApi = () => {
       console.error(error);
     }
   };
-  return {getStocksTimePeriod, getStocks};
+  const getCompanyInfo = async companyName => {
+    const companySymbol = await getStockSymbol(companyName);
+    const options = {
+      method: 'GET',
+      url: 'https://real-time-finance-data.p.rapidapi.com/stock-overview',
+      params: {
+        symbol: companySymbol,
+        language: 'en',
+      },
+      headers: {
+        'X-RapidAPI-Key': '7feb43de13msh3d763dcb818324ap171020jsn45318599ce35',
+        'X-RapidAPI-Host': 'real-time-finance-data.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return {getStocksTimePeriod, getStockSymbol, getStocks, getCompanyInfo};
 };
