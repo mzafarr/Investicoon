@@ -71,7 +71,7 @@ const Splashscreen = () => {
     //   }
     // };
     // checkAndUpdateData();
-    SplashScreen.hide();
+    // SplashScreen.hide();
     navigation.navigate('Tabs');
   }, []);
   return (

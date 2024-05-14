@@ -2,8 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,66 +16,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="9br-0S-3tP">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="vKw-E6-NZQ">
                                 <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="ItD-JA-rKs">
-                                <rect key="frame" x="90" y="271" width="250" height="252"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="252" id="fyO-Jj-bMZ"/>
-                                </constraints>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" editable="NO" text="Analytics Made Easy" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nq5-lU-tcM">
-                                <rect key="frame" x="114.10270270270155" y="575.00000000013551" width="199.00000000004457" height="36.000000000007958"/>
-                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="1" alpha="0.56630784639999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="ZvE-cU-KrD"/>
-                                </constraints>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" editable="NO" text="INVESTICOON" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AS6-XJ-a5k">
-                                <rect key="frame" x="64.91351351351193" y="519.0000000001221" width="300.00000000006708" height="48.000000000021487"/>
-                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="jp8-hG-NRG"/>
-                                </constraints>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="xpE-bc-e5I"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="nq5-lU-tcM" firstAttribute="top" secondItem="ItD-JA-rKs" secondAttribute="bottom" constant="52" id="0gd-pP-wqe"/>
-                            <constraint firstItem="AS6-XJ-a5k" firstAttribute="centerX" secondItem="nq5-lU-tcM" secondAttribute="centerX" id="5c7-OO-DeU"/>
-                            <constraint firstAttribute="trailing" secondItem="9br-0S-3tP" secondAttribute="trailing" id="76P-FT-2zK"/>
-                            <constraint firstItem="nq5-lU-tcM" firstAttribute="leading" secondItem="xOu-dF-pEr" secondAttribute="leadingMargin" constant="80" id="BH0-KZ-sCj"/>
-                            <constraint firstItem="9br-0S-3tP" firstAttribute="top" secondItem="xOu-dF-pEr" secondAttribute="top" id="SrC-UO-4FT"/>
-                            <constraint firstAttribute="bottom" secondItem="AS6-XJ-a5k" secondAttribute="bottom" constant="365" id="YYP-wP-jBb"/>
-                            <constraint firstItem="AS6-XJ-a5k" firstAttribute="centerX" secondItem="9br-0S-3tP" secondAttribute="centerX" id="fha-fh-wds"/>
-                            <constraint firstAttribute="bottom" secondItem="9br-0S-3tP" secondAttribute="bottom" id="fhy-x1-YZI"/>
-                            <constraint firstItem="9br-0S-3tP" firstAttribute="leading" secondItem="xOu-dF-pEr" secondAttribute="leading" id="k4L-gq-uBj"/>
-                            <constraint firstItem="AS6-XJ-a5k" firstAttribute="leading" secondItem="xOu-dF-pEr" secondAttribute="leadingMargin" constant="49" id="kgT-5Q-bcG"/>
-                            <constraint firstItem="nq5-lU-tcM" firstAttribute="top" secondItem="AS6-XJ-a5k" secondAttribute="bottom" constant="8" symbolic="YES" id="pKa-Ix-23J"/>
-                            <constraint firstItem="AS6-XJ-a5k" firstAttribute="centerX" secondItem="ItD-JA-rKs" secondAttribute="centerX" id="vmE-aL-PUa"/>
+                            <constraint firstItem="vKw-E6-NZQ" firstAttribute="leading" secondItem="xOu-dF-pEr" secondAttribute="leading" id="GId-Cp-j1f"/>
+                            <constraint firstAttribute="bottom" secondItem="vKw-E6-NZQ" secondAttribute="bottom" id="eff-9w-3TQ"/>
+                            <constraint firstItem="vKw-E6-NZQ" firstAttribute="top" secondItem="xOu-dF-pEr" secondAttribute="top" id="wXg-nC-WU6"/>
+                            <constraint firstAttribute="trailing" secondItem="vKw-E6-NZQ" secondAttribute="trailing" id="xWt-j7-rVf"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="48.799999999999997" y="373.89162561576359"/>
+            <point key="canvasLocation" x="47.441860465116278" y="373.39055793991417"/>
         </scene>
     </scenes>
     <resources>
-        <image name="bg" width="270" height="480"/>
-        <image name="image" width="250" height="250"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="splash" width="414" height="736"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
