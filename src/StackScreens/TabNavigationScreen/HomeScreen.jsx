@@ -13,14 +13,88 @@ import {useStockApi} from '../../CustomHooks/useStockApi/useStockApi';
 import {heightToDp, widthToDp} from '../../utils/Responsive';
 import {LineChart} from 'react-native-gifted-charts';
 import HomeGraph from '../../Components/HomeGraphComponent/HomeGraph';
+import AnimatedBar from '../../Components/HomeGraphComponent/AnimatedBar/AnimatedBar';
 const HomeScreen = ({navigation}) => {
   const [cName, setcName] = useState('');
   const {getStocks} = useStockApi();
+  const companyData = {
+    symbol: 'AAPL:NASDAQ',
+    name: 'Apple Inc',
+    type: 'stock',
+    price: 186.66,
+    change: 3.61,
+    change_percent: 1.9721,
+    previous_close: 183.05,
+    last_update_utc: '2024-05-13 16:50:02',
+    country_code: 'US',
+    exchange: 'NASDAQ',
+    exchange_open: '2024-05-13 09:30:00',
+    exchange_close: '2024-05-13 16:00:00',
+    timezone: 'America/New_York',
+    utc_offset_sec: -14400,
+    currency: 'USD',
+    google_mid: '/m/07zmbvf',
+  };
+  const ptData = [
+    {value: 160, date: '1 Apr 2022'},
+    {value: 180, date: '2 Apr 2022'},
+    {value: 190, date: '3 Apr 2022'},
+    {value: 180, date: '4 Apr 2022'},
+    {value: 140, date: '5 Apr 2022'},
 
+    {value: 220, date: '9 Apr 2022'},
+    {
+      value: 240,
+      date: '10 Apr 2022',
+      label: '10 Apr',
+      labelTextStyle: {color: 'lightgray', width: 60},
+    },
+    {value: 280, date: '11 Apr 2022'},
+    {value: 260, date: '12 Apr 2022'},
+
+    {value: 370, date: '17 Apr 2022'},
+    {value: 285, date: '18 Apr 2022'},
+    {value: 295, date: '19 Apr 2022'},
+    {
+      value: 300,
+      date: '20 Apr 2022',
+      label: '20 Apr',
+      labelTextStyle: {color: 'lightgray', width: 60},
+    },
+    {value: 280, date: '21 Apr 2022'},
+    {value: 295, date: '22 Apr 2022'},
+    {value: 230, date: '28 Apr 2022'},
+    {value: 210, date: '29 Apr 2022'},
+    {
+      value: 200,
+      date: '30 Apr 2022',
+      label: '30 Apr',
+      labelTextStyle: {color: 'lightgray', width: 60},
+    },
+    {value: 240, date: '1 May 2022'},
+    {value: 250, date: '2 May 2022'},
+  ];
   useEffect(() => {}, []);
   return (
     <SafeAreaView style={styles.container}>
-      <HomeGraph />
+      <View style={{marginTop: widthToDp(5)}}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingHorizontal: widthToDp(2),
+            gap: 10,
+          }}>
+          <HomeGraph companyData={companyData} graphData={ptData} />
+          <HomeGraph companyData={companyData} graphData={ptData} />
+          <HomeGraph companyData={companyData} graphData={ptData} />
+          <HomeGraph companyData={companyData} graphData={ptData} />
+          <HomeGraph companyData={companyData} graphData={ptData} />
+        </ScrollView>
+      </View>
+      <View style={{marginTop: widthToDp(5)}}>
+        <AnimatedBar />
+      </View>
     </SafeAreaView>
   );
 };
@@ -28,8 +102,6 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: Colors.backgroundColor,
   },
   title: {
@@ -42,7 +114,9 @@ const styles = StyleSheet.create({
 
 export default HomeScreen;
 
-// const data = {
+{
+  /* // const data = { */
+}
 //   status: 'OK',
 //   request_id: 'bbe94622-cdce-46ae-8e83-7b7a243732b1',
 //   data: {

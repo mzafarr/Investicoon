@@ -31,7 +31,7 @@ export const useLocalStorage = () => {
       return null;
     }
   };
-  const callApiAgain = async companyName => {
+  const callApiAgain = async () => {
     try {
       const key = 'companies';
       const storedData = await AsyncStorage.getItem(key);

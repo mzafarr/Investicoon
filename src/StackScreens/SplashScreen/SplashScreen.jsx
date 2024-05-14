@@ -46,31 +46,33 @@ const Splashscreen = () => {
   };
   useEffect(() => {
     // AsyncStorage.clear();
-    const checkAndUpdateData = async () => {
-      try {
-        const shouldCallAgain = await callApiAgain();
-        console.log('shouldCallAgain', shouldCallAgain);
-        if (shouldCallAgain) {
-          // Call API again and update data
-          await fetchData();
-        } else {
-          dispatch(fetchDataStart());
-          console.log(`Data is up to date`);
-          const response = await fetchDataFromStorage(); // Fetch data from storage
-          if (response) {
-            dispatch(fetchDataSuccess(response));
-          } else {
-            console.log('No data found in storage'); // Handle case where no data is found in storage
-          }
-          SplashScreen.hide();
-          navigation.navigate('Tabs');
-        }
-      } catch (error) {
-        dispatch(fetchDataFailure(error));
-        console.error(`Error checking and updating data `, error);
-      }
-    };
-    checkAndUpdateData();
+    // const checkAndUpdateData = async () => {
+    //   try {
+    //     const shouldCallAgain = await callApiAgain();
+    //     console.log('shouldCallAgain', shouldCallAgain);
+    //     if (shouldCallAgain) {
+    //       // Call API again and update data
+    //       await fetchData();
+    //     } else {
+    //       dispatch(fetchDataStart());
+    //       console.log(`Data is up to date`);
+    //       const response = await fetchDataFromStorage(); // Fetch data from storage
+    //       if (response) {
+    //         dispatch(fetchDataSuccess(response));
+    //       } else {
+    //         console.log('No data found in storage'); // Handle case where no data is found in storage
+    //       }
+    //       SplashScreen.hide();
+    //       navigation.navigate('Tabs');
+    //     }
+    //   } catch (error) {
+    //     dispatch(fetchDataFailure(error));
+    //     console.error(`Error checking and updating data `, error);
+    //   }
+    // };
+    // checkAndUpdateData();
+    SplashScreen.hide();
+    navigation.navigate('Tabs');
   }, []);
   return (
     <View style={styles.container}>
