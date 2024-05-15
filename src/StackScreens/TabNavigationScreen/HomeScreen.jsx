@@ -15,6 +15,7 @@ import {LineChart} from 'react-native-gifted-charts';
 import HomeGraph from '../../Components/HomeGraphComponent/HomeGraph';
 import AnimatedBar from '../../Components/AnimatedBar/AnimatedBar';
 import HomeRowTab from '../../Components/HomeRowTab/HomeRowTab';
+import SplashScreen from 'react-native-splash-screen';
 const HomeScreen = ({navigation}) => {
   const [cName, setcName] = useState('');
   const {getStocks} = useStockApi();
@@ -148,7 +149,9 @@ const HomeScreen = ({navigation}) => {
   const navigateToCompanyOverview = () => {
     navigation.navigate('CompanyViewScreen');
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
