@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {OneDayData} from '../../Redux/ReduxSlices/OneDaySlice';
@@ -6,53 +6,54 @@ import {LineChart} from 'react-native-gifted-charts';
 import {widthToDp} from '../../utils/Responsive';
 import Colors from '../../../assets/Colors';
 
-const HomeGraph = ({companyData, graphData}) => {
+const HomeGraph = ({companyData, onPress, graphData}) => {
   const Data = useSelector(OneDayData);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.ComapnyFlex}>
-        <Text style={styles.title}>{companyData.name}</Text>
-        <View style={styles.priceContainer}>
-          <Text style={styles.text}>{companyData.price}</Text>
-          <Text
-            style={[
-              styles.textsmall,
-              companyData.change > 0 ? {color: 'green'} : {color: 'red'},
-            ]}>
-            {companyData?.change}({companyData?.change_percent}%)
-          </Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.ComapnyFlex}>
+          <Text style={styles.title}>{companyData.name}</Text>
+          <View style={styles.priceContainer}>
+            <Text style={styles.text}>{companyData.price}</Text>
+            <Text
+              style={[
+                styles.textsmall,
+                companyData.change > 0 ? {color: 'green'} : {color: 'red'},
+              ]}>
+              {companyData?.change}({companyData?.change_percent}%)
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            width: widthToDp(95),
+            paddingBottom: widthToDp(10),
+          }}>
+          <LineChart
+            areaChart
+            data={graphData}
+            rotateLabel
+            yAxisOffset={graphData[0].value - 20}
+            hideDataPoints
+            spacing={12}
+            color="#00ff83"
+            thickness={2}
+            startFillColor="rgba(20,105,81,0.3)"
+            endFillColor="rgba(20,85,81,0.01)"
+            startOpacity={0.9}
+            endOpacity={0.2}
+            noOfSections={6}
+            yAxisThickness={0}
+            showXAxisIndices={false}
+            xAxisIndicesColor="lightgray"
+            rulesColor="transparent"
+            yAxisTextStyle={{color: 'transparent'}}
+            xAxisColor="lightgray"
+          />
         </View>
       </View>
-      <View
-        style={{
-          width: widthToDp(95),
-          paddingBottom: widthToDp(10),
-        }}>
-        <LineChart
-          areaChart
-          data={graphData}
-          rotateLabel
-          yAxisOffset={graphData[0].value - 20}
-          // width={widthToDp(60)}
-          hideDataPoints
-          spacing={12}
-          color="#00ff83"
-          thickness={2}
-          startFillColor="rgba(20,105,81,0.3)"
-          endFillColor="rgba(20,85,81,0.01)"
-          startOpacity={0.9}
-          endOpacity={0.2}
-          noOfSections={6}
-          yAxisThickness={0}
-          showXAxisIndices={false}
-          xAxisIndicesColor="lightgray"
-          rulesColor="transparent"
-          yAxisTextStyle={{color: 'transparent'}}
-          xAxisColor="lightgray"
-        />
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

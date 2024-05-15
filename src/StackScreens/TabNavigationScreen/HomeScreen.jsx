@@ -13,10 +13,57 @@ import {useStockApi} from '../../CustomHooks/useStockApi/useStockApi';
 import {heightToDp, widthToDp} from '../../utils/Responsive';
 import {LineChart} from 'react-native-gifted-charts';
 import HomeGraph from '../../Components/HomeGraphComponent/HomeGraph';
-import AnimatedBar from '../../Components/HomeGraphComponent/AnimatedBar/AnimatedBar';
+import AnimatedBar from '../../Components/AnimatedBar/AnimatedBar';
+import HomeRowTab from '../../Components/HomeRowTab/HomeRowTab';
 const HomeScreen = ({navigation}) => {
   const [cName, setcName] = useState('');
   const {getStocks} = useStockApi();
+  const company = {
+    symbol: 'AAPL:NASDAQ',
+    name: 'Apple Inc',
+    type: 'stock',
+    price: 186.88,
+    open: 187.51,
+    high: 188.3,
+    low: 186.29,
+    volume: 26061718,
+    previous_close: 186.28,
+    change: 0.6,
+    change_percent: 0.3221,
+    pre_or_post_market: 187.79,
+    pre_or_post_market_change: 1.0622,
+    pre_or_post_market_change_percent: 0.5688,
+    last_update_utc: '2024-05-14 17:42:46',
+    country_code: 'US',
+    exchange: 'NASDAQ',
+    exchange_open: '2024-05-14 09:30:00',
+    exchange_close: '2024-05-14 16:00:00',
+    timezone: 'America/New_York',
+    utc_offset_sec: -14400,
+    currency: 'USD',
+    about:
+      "Apple Inc. is an American multinational corporation and technology company headquartered in Cupertino, California, in Silicon Valley. It designs, develops, and sells consumer electronics, computer software, and online services. Devices include the iPhone, iPad, Mac, Apple Watch, Vision Pro, and Apple TV; operating systems include iOS, iPadOS, and macOS; and software applications and services include iTunes, iCloud, Apple Music, and Apple TV+.\nFor most of 2011 to 2024, Apple became the world's largest company by market capitalization until Microsoft assumed the position in January 2024. In 2022, Apple was the largest technology company by revenue, with US$394.3 billion. As of 2023, Apple was the fourth-largest personal computer vendor by unit sales, the largest manufacturing company by revenue, and the largest vendor of mobile phones in the world. It is one of the Big Five American information technology companies, alongside Alphabet, Amazon, Meta, and Microsoft.\nApple was founded as Apple Computer Company on April 1, 1976, to produce and market Steve Wozniak's Apple I personal computer. The company was incorporated by Wozniak and Steve Jobs in 1977.",
+    year_low: 164.075,
+    year_high: 199.62,
+    primary_exchange: 'NASDAQ',
+    company_website: 'http://www.apple.com/',
+    company_country_code: 'US',
+    company_country: 'United States',
+    company_state: 'California',
+    company_city: 'Cupertino',
+    company_street_address: 'One Apple Park Way',
+    company_ceo: 'Tim Cook',
+    company_employees: 161000,
+    company_cdp_score: 'A-',
+    company_founded_date: '1976-04-01',
+    company_cdp_url: 'https://www.cdp.net/en/responses/865',
+    avg_volume: 62684101,
+    company_pe_ratio: 29.0495,
+    company_market_cap: 2864712937910.1562,
+    company_dividend_yield: 0.5353,
+    wikipedia_url: 'https://en.wikipedia.org/wiki/Apple_Inc.',
+    google_mid: '/m/07zmbvf',
+  };
   const companyData = {
     symbol: 'AAPL:NASDAQ',
     name: 'Apple Inc',
@@ -74,27 +121,100 @@ const HomeScreen = ({navigation}) => {
     {value: 240, date: '1 May 2022'},
     {value: 250, date: '2 May 2022'},
   ];
+  const BarData = [
+    {value: 160, date: '1 Apr 2022'},
+    {value: 180, date: '2 Apr 2022'},
+    {value: 190, date: '3 Apr 2022'},
+    {value: 180, date: '4 Apr 2022'},
+    {value: 140, date: '5 Apr 2022'},
+
+    {value: 220, date: '9 Apr 2022'},
+
+    {value: 280, date: '11 Apr 2022'},
+    {value: 260, date: '12 Apr 2022'},
+
+    {value: 370, date: '17 Apr 2022'},
+    {value: 285, date: '18 Apr 2022'},
+    {value: 295, date: '19 Apr 2022'},
+
+    {value: 280, date: '21 Apr 2022'},
+    {value: 295, date: '22 Apr 2022'},
+    {value: 230, date: '28 Apr 2022'},
+    {value: 210, date: '29 Apr 2022'},
+
+    {value: 240, date: '1 May 2022'},
+    {value: 250, date: '2 May 2022'},
+  ];
+  const navigateToCompanyOverview = () => {
+    navigation.navigate('CompanyViewScreen');
+  };
   useEffect(() => {}, []);
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{marginTop: widthToDp(5)}}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingHorizontal: widthToDp(2),
-            gap: 10,
-          }}>
-          <HomeGraph companyData={companyData} graphData={ptData} />
-          <HomeGraph companyData={companyData} graphData={ptData} />
-          <HomeGraph companyData={companyData} graphData={ptData} />
-          <HomeGraph companyData={companyData} graphData={ptData} />
-          <HomeGraph companyData={companyData} graphData={ptData} />
-        </ScrollView>
-      </View>
-      <View style={{marginTop: widthToDp(5)}}>
-        <AnimatedBar />
-      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: widthToDp(15)}}>
+        <View style={{marginTop: widthToDp(5)}}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingHorizontal: widthToDp(2),
+              gap: 10,
+            }}>
+            <HomeGraph
+              companyData={companyData}
+              graphData={ptData}
+              onPress={() => navigateToCompanyOverview()}
+            />
+            <HomeGraph
+              companyData={companyData}
+              graphData={ptData}
+              onPress={() => navigateToCompanyOverview()}
+            />
+            <HomeGraph
+              companyData={companyData}
+              graphData={ptData}
+              onPress={() => navigateToCompanyOverview()}
+            />
+            <HomeGraph
+              companyData={companyData}
+              graphData={ptData}
+              onPress={() => navigateToCompanyOverview()}
+            />
+            <HomeGraph
+              companyData={companyData}
+              graphData={ptData}
+              onPress={() => navigateToCompanyOverview()}
+            />
+          </ScrollView>
+        </View>
+        <View style={{marginTop: widthToDp(5)}}>
+          <AnimatedBar />
+        </View>
+        <View>
+          <HomeRowTab
+            companyData={companyData}
+            graphData={BarData}
+            onPress={() => navigateToCompanyOverview()}
+          />
+          <HomeRowTab
+            companyData={companyData}
+            graphData={BarData}
+            onPress={() => navigateToCompanyOverview()}
+          />
+          <HomeRowTab
+            companyData={companyData}
+            graphData={BarData}
+            onPress={() => navigateToCompanyOverview()}
+          />
+          <HomeRowTab
+            companyData={companyData}
+            graphData={BarData}
+            onPress={() => navigateToCompanyOverview()}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../assets/Colors';
 import {widthToDp} from '../utils/Responsive';
 import Splashscreen from '../StackScreens/SplashScreen/SplashScreen';
+import CompanyViewScreen from '../StackScreens/CompanyViewScreen/CompanyViewScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,7 +68,7 @@ function TabNavigator() {
 // Define stack navigation
 function NavigationScreens() {
   return (
-    <Stack.Navigator initialRouteName="Splashscreen">
+    <Stack.Navigator initialRouteName="Tabs">
       <Stack.Screen
         name="OnboardingScreen"
         options={{headerShown: false}}
@@ -102,6 +103,11 @@ function NavigationScreens() {
         name="DetailsScreen"
         options={{headerShown: false}}
         component={DetailsScreen}
+      />
+      <Stack.Screen
+        name="CompanyViewScreen"
+        options={{headerShown: false}}
+        component={CompanyViewScreen}
       />
     </Stack.Navigator>
   );

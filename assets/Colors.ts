@@ -9,4 +9,6 @@ export default {
   white: '#fff',
   backgroundColor: '#373737',
   logoBackground: '#bec1ca',
+  green: '#00FF00',
+  red: '#FF0000',
 };

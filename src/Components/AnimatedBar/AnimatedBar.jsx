@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {widthToDp} from '../../../utils/Responsive';
+import {widthToDp} from '../../utils/Responsive';
 
 const AnimatedBar = () => {
   const options = ['1D', '5D', '1M', '6M', '1Y'];
