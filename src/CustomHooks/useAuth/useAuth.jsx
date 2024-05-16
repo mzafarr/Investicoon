@@ -1,8 +1,8 @@
-const API_LINK = 'https://temporary-weld.vercel.app/api/';
+const API_LINK = 'https://temporary-weld.vercel.app/api';
 const useAuth = () => {
   const login = async (email, password) => {
     try {
-      const response = await fetch(`${API_LINK}/auth/signin/`, {
+      const response = await fetch(`${API_LINK}/signin/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,8 +32,7 @@ const useAuth = () => {
 
   const signup = async (name, email, password) => {
     try {
-      console.log(name, email, password, `${API_LINK}/auth/signup/`);
-      const response = await fetch(`${API_LINK}/auth/signup`, {
+      const response = await fetch(`${API_LINK}/signup/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,17 +43,12 @@ const useAuth = () => {
           password: password,
         }),
       });
-      console.log('Response status:', response.status);
       const responseData = await response.text();
-      console.log('Response data:', responseData);
-
       const data = JSON.parse(responseData);
       console.log('Parsed data:', data);
-      if (response.ok) {
-        // Signup successful
+      if (response.status) {
         return {success: true, data: data};
       } else {
-        // Signup failed
         return {success: false, error: data.message || data.errors[0].msg};
       }
     } catch (error) {

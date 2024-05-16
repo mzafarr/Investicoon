@@ -19,6 +19,8 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import {widthToDp} from '../../utils/Responsive';
 import PillButton from '../../Components/PillButton/PillButton';
 import Toast from 'react-native-toast-message';
+import useAuth from '../../CustomHooks/useAuth/useAuth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignInType = {
   Phone: 0,
@@ -28,6 +30,7 @@ const SignInType = {
 };
 
 const LoginScreen = () => {
+  const {login} = useAuth();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 80 : 0;
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
@@ -46,9 +49,12 @@ const LoginScreen = () => {
     }
   };
   const onSignIn = async () => {
-    console.log('email', email);
-
-    // navigation.navigate('OtpScreen');
+    const {success, data} = await login(email, password);
+    if (success) {
+      console.log('data', data?.access_token);
+      await AsyncStorage.setItem('access_token', data?.access_token);
+      navigation.navigate('Tabs');
+    }
   };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

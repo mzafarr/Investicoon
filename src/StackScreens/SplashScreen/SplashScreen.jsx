@@ -72,7 +72,7 @@ const Splashscreen = () => {
     // };
     // checkAndUpdateData();
     SplashScreen.hide();
-    navigation.navigate('Tabs');
+    navigation.navigate('OnboardingScreen');
   }, []);
   return (
     <View style={styles.container}>

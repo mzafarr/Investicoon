@@ -28,6 +28,8 @@ const ProfileScreen = () => {
   const handleButtonPress = () => {
     setBottomSheetVisible(true);
   };
+  const handleClosePress = () => bottomSheetRef.current.close();
+
   const handleSheetChanges = useCallback(index => {}, []);
 
   useEffect(() => {
@@ -66,12 +68,17 @@ const ProfileScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.btn}>
+          <Ionicons name="close-circle-outline" size={24} color={'#fff'} />
+          <Text style={{color: '#fff', fontSize: 18}}>Delete Account</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn}>
           <Ionicons name="log-out" size={24} color={'#fff'} />
           <Text style={{color: '#fff', fontSize: 18}}>Log out</Text>
         </TouchableOpacity>
       </View>
       <BottomSheet
         ref={bottomSheetRef}
+        keyboardBehavior="extend"
         onChange={handleSheetChanges}
         index={bottomSheetVisible ? 1 : -1}
         snapPoints={['80%', '90%']}
@@ -100,7 +107,7 @@ const ProfileScreen = () => {
               ButtonText="Submit"
               email={title}
               password={description}
-              // onPress={() => checkEmail()}
+              onPress={() => handleClosePress()}
               loading={loading}
             />
           </View>
