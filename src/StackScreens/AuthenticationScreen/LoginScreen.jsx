@@ -9,11 +9,16 @@ import {
   Platform,
   Alert,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import Colors from '../../../assets/Colors';
 import {defaultStyles} from '../../../assets/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
+import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
+import {widthToDp} from '../../utils/Responsive';
+import PillButton from '../../Components/PillButton/PillButton';
+import Toast from 'react-native-toast-message';
 
 const SignInType = {
   Phone: 0,
@@ -24,42 +29,59 @@ const SignInType = {
 
 const LoginScreen = () => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 80 : 0;
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const checkEmail = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log(emailRegex.test(email));
+    if (!emailRegex.test(email)) {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid Email',
+      });
+    } else {
+      setLoading(true);
+      await onSignIn();
+      setLoading(false);
+    }
+  };
   const onSignIn = async () => {
-    navigation.navigate('OtpScreen');
     console.log('email', email);
+
+    // navigation.navigate('OtpScreen');
   };
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <SafeAreaView style={defaultStyles.container}>
-      <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior="padding"
-        keyboardVerticalOffset={keyboardVerticalOffset}>
+      <ScrollView>
         <View style={defaultStyles.container}>
           <Text style={defaultStyles.header}>Welcome back</Text>
           <Text style={defaultStyles.descriptionText}>
             Enter the email address associated with your account
           </Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={[styles.input, {flex: 1}]}
+          <View style={{marginVertical: widthToDp(5)}}>
+            <CustomTextInput
               placeholder="Email Address"
               placeholderTextColor={Colors.gray}
               value={email}
               onChangeText={setEmail}
             />
+            <CustomTextInput
+              placeholder="Password"
+              placeholderTextColor={Colors.gray}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={true}
+            />
           </View>
-
-          <TouchableOpacity
-            style={[
-              defaultStyles.pillButton,
-              email !== '' ? styles.enabled : styles.disabled,
-              {marginBottom: 20},
-            ]}
-            onPress={() => onSignIn(SignInType.Phone)}>
-            <Text style={defaultStyles.buttonText}>Continue</Text>
-          </TouchableOpacity>
+          <PillButton
+            ButtonText="Login"
+            email={email}
+            password={password}
+            onPress={() => checkEmail()}
+            loading={loading}
+          />
 
           <View style={{flexDirection: 'row', alignItems: 'center', gap: 16}}>
             <View
@@ -78,7 +100,6 @@ const LoginScreen = () => {
               }}
             />
           </View>
-
           <TouchableOpacity
             onPress={() => onSignIn(SignInType.Google)}
             style={[
@@ -94,7 +115,6 @@ const LoginScreen = () => {
               Continue with Google{' '}
             </Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => onSignIn(SignInType.Apple)}
             style={[
@@ -111,7 +131,7 @@ const LoginScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -56,11 +56,7 @@ function TabNavigator() {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Subscription" component={SubscriptionScreen} />
       <Tab.Screen name="AI Bot" component={BotScreen} />
-      <Tab.Screen
-        name="Account"
-        component={ProfileScreen}
-        options={{headerShown: false}}
-      />
+      <Tab.Screen name="Account" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
@@ -68,7 +64,7 @@ function TabNavigator() {
 // Define stack navigation
 function NavigationScreens() {
   return (
-    <Stack.Navigator initialRouteName="Tabs">
+    <Stack.Navigator initialRouteName="Splashscreen">
       <Stack.Screen
         name="OnboardingScreen"
         options={{headerShown: false}}

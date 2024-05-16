@@ -70,40 +70,10 @@ const ProfileScreen = () => {
         reducedTransparencyFallbackColor="white"
       />
       <View style={{alignItems: 'center', paddingTop: heightToDp(10)}}>
-        {/* <TouchableOpacity onPress={onCaptureImage} style={styles.captureBtn}>
-          {user?.imageUrl && (
-            <Image source={require('../../../assets/')} style={styles.avatar} />
-          )}
-        </TouchableOpacity> */}
-
         <View style={{flexDirection: 'row', gap: 6}}>
-          {!edit && (
-            <View style={styles.editRow}>
-              <Text style={{fontSize: 26, color: '#fff'}}>John Doe</Text>
-              <TouchableOpacity onPress={() => setEdit(true)}>
-                <Ionicons name="ellipsis-horizontal" size={24} color={'#fff'} />
-              </TouchableOpacity>
-            </View>
-          )}
-          {edit && (
-            <View style={styles.editRow}>
-              <TextInput
-                placeholder="First Name"
-                value={firstName || ''}
-                onChangeText={setFirstName}
-                style={[styles.inputField]}
-              />
-              <TextInput
-                placeholder="Last Name"
-                value={lastName || ''}
-                onChangeText={setLastName}
-                style={[styles.inputField]}
-              />
-              <TouchableOpacity onPress={onSaveUser}>
-                <Ionicons name="checkmark-outline" size={24} color={'#fff'} />
-              </TouchableOpacity>
-            </View>
-          )}
+          <View style={styles.editRow}>
+            <Text style={{fontSize: 26, color: '#fff'}}>John Doe</Text>
+          </View>
         </View>
       </View>
 
@@ -116,10 +86,7 @@ const ProfileScreen = () => {
           <Ionicons name="bulb" size={24} color={'#fff'} />
           <Text style={{color: '#fff', fontSize: 18}}>Suggest a feature</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.btn}>
-          <Ionicons name="hat" size={24} color={'#fff'} />
-          <Text style={{color: '#fff', fontSize: 18}}>Learn</Text>
-        </TouchableOpacity> */}
+
         <TouchableOpacity style={styles.btn}>
           <Ionicons name="log-out" size={24} color={'#fff'} />
           <Text style={{color: '#fff', fontSize: 18}}>Log out</Text>

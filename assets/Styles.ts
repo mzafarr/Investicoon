@@ -22,6 +22,7 @@ export const defaultStyles = StyleSheet.create({
   },
   textLink: {
     color: Colors.primary,
+    marginTop: widthToDp(5),
     fontSize: 18,
     fontWeight: '500',
   },

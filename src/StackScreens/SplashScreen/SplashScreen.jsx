@@ -76,12 +76,12 @@ const Splashscreen = () => {
   }, []);
   return (
     <View style={styles.container}>
-      <Image
+      {/* <Image
         source={require('../../../assets/images/logo.png')}
         style={styles.image}
       />
       <Text style={styles.heading}>INVESTICOON</Text>
-      <Text style={styles.subheading}>Analytics Made Easy</Text>
+      <Text style={styles.subheading}>Analytics Made Easy</Text> */}
     </View>
   );
 };
