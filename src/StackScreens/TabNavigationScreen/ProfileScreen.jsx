@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -11,13 +11,24 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../../assets/Colors';
 import {BlurView} from '@react-native-community/blur';
-import {heightToDp} from '../../utils/Responsive';
+import {heightToDp, widthToDp} from '../../utils/Responsive';
+import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
+import {defaultStyles} from '../../../assets/Styles';
+import PillButton from '../../Components/PillButton/PillButton';
 
 const ProfileScreen = () => {
-  const [firstName, setFirstName] = useState('Abdul');
-  const [lastName, setLastName] = useState('Hadi');
-  const [edit, setEdit] = useState(false);
-  const [activeIcon, setActiveIcon] = useState('Default');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+  // callbacks
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const bottomSheetRef = useRef(null);
+
+  const handleButtonPress = () => {
+    setBottomSheetVisible(true);
+  };
+  const handleSheetChanges = useCallback(index => {}, []);
 
   useEffect(() => {
     // const loadCurrentIconPref = async () => {
@@ -27,39 +38,6 @@ const ProfileScreen = () => {
     // };
     // loadCurrentIconPref();
   }, []);
-
-  const onSaveUser = async () => {
-    // try {
-    //   await user?.update({ firstName: firstName!, lastName: lastName! });
-    //   setEdit(false);
-    // } catch (error) {
-    //   console.error(error);
-    // } finally {
-    //   setEdit(false);
-    // }
-  };
-
-  const onCaptureImage = async () => {
-    // let result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    //   allowsEditing: true,
-    //   aspect: [4, 3],
-    //   quality: 0.75,
-    //   base64: true,
-    // });
-    // if (!result.canceled) {
-    //   const base64 = `data:image/png;base64,${result.assets[0].base64}`;
-    //   console.log(base64);
-    //   user?.setProfileImage({
-    //     file: base64,
-    //   });
-    // }
-  };
-
-  const onChangeAppIcon = async icon => {
-    // await setAppIcon(icon.toLowerCase());
-    // setActiveIcon(icon);
-  };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -82,7 +60,7 @@ const ProfileScreen = () => {
           <Ionicons name="person" size={24} color={'#fff'} />
           <Text style={{color: '#fff', fontSize: 18}}>Account</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn} onPress={handleButtonPress}>
           <Ionicons name="bulb" size={24} color={'#fff'} />
           <Text style={{color: '#fff', fontSize: 18}}>Suggest a feature</Text>
         </TouchableOpacity>
@@ -92,6 +70,42 @@ const ProfileScreen = () => {
           <Text style={{color: '#fff', fontSize: 18}}>Log out</Text>
         </TouchableOpacity>
       </View>
+      <BottomSheet
+        ref={bottomSheetRef}
+        onChange={handleSheetChanges}
+        index={bottomSheetVisible ? 1 : -1}
+        snapPoints={['80%', '90%']}
+        handleIndicatorStyle={{backgroundColor: '#fff', width: widthToDp(10)}}
+        backgroundStyle={{backgroundColor: Colors.background}}>
+        <BottomSheetView style={styles.contentContainer}>
+          <Text style={[defaultStyles.sectionHeader, {color: '#fff'}]}>
+            Suggest A Feature
+          </Text>
+          <CustomTextInput
+            placeholder="Title"
+            placeholderTextColor={Colors.gray}
+            value={title}
+            onChangeText={setTitle}
+          />
+          <CustomTextInput
+            placeholder="Description"
+            placeholderTextColor={Colors.gray}
+            value={description}
+            onChangeText={setDescription}
+            multiline={true}
+            height={150}
+          />
+          <View style={{width: widthToDp(40), marginTop: widthToDp(5)}}>
+            <PillButton
+              ButtonText="Submit"
+              email={title}
+              password={description}
+              // onPress={() => checkEmail()}
+              loading={loading}
+            />
+          </View>
+        </BottomSheetView>
+      </BottomSheet>
     </SafeAreaView>
   );
 };
@@ -127,6 +141,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     backgroundColor: '#fff',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
   actions: {
     backgroundColor: 'rgba(256, 256, 256, 0.1)',

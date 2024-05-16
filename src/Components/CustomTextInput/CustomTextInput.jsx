@@ -15,6 +15,8 @@ const CustomTextInput = ({
   onChangeText,
   placeholder,
   secureTextEntry,
+  multiline,
+  height,
 }) => {
   const [secureText, setSecureText] = useState(secureTextEntry);
 
@@ -22,7 +24,7 @@ const CustomTextInput = ({
     setSecureText(!secureText);
   };
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer]}>
       <TextInput
         style={[styles.input]}
         placeholder={placeholder}
@@ -31,6 +33,8 @@ const CustomTextInput = ({
         autoCapitalize="none"
         onChangeText={onChangeText}
         secureTextEntry={secureText}
+        multiline={multiline}
+        maxHeight={widthToDp(30)}
       />
       {secureTextEntry &&
         (secureText ? (
@@ -63,5 +67,6 @@ const styles = StyleSheet.create({
     width: widthToDp(70),
     backgroundColor: Colors.lightGray,
     fontSize: widthToDp(5),
+    maxHeight: widthToDp(150),
   },
 });
