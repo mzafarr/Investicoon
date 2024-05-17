@@ -17,6 +17,7 @@ const PillButton = ({
   onPress,
   ButtonText,
   loading,
+  TouchStyles,
 }) => {
   const checkEmail = email && true;
   const checkName = fullName === undefined ? true : fullName && true;
@@ -26,7 +27,7 @@ const PillButton = ({
       style={[
         defaultStyles.pillButton,
         checkEmail && checkName && checkPass ? styles.enabled : styles.disabled,
-        {marginBottom: widthToDp(5)},
+        TouchStyles,
       ]}
       disabled={checkEmail && checkName && checkPass && !loading ? false : true}
       onPress={onPress}>

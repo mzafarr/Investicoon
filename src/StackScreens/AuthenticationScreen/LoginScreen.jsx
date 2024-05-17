@@ -49,11 +49,26 @@ const LoginScreen = () => {
     }
   };
   const onSignIn = async () => {
-    const {success, data} = await login(email, password);
-    if (success) {
+    const {data} = await login(email, password);
+    console.log('Here', data?.status);
+    if (data?.access_token) {
       console.log('data', data?.access_token);
       await AsyncStorage.setItem('access_token', data?.access_token);
       navigation.navigate('Tabs');
+      Toast.show({
+        type: 'success',
+        text1: 'Login successful',
+      });
+    } else if (data?.status === 401) {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid credentials',
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'Something went wrong',
+      });
     }
   };
   const [email, setEmail] = useState('');

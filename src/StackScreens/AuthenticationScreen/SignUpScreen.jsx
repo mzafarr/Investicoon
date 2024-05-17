@@ -20,7 +20,7 @@ import useAuth from '../../CustomHooks/useAuth/useAuth';
 import PillButton from '../../Components/PillButton/PillButton';
 
 const SignUpScreen = () => {
-  const {signup} = useAuth();
+  const {sendOtp} = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
@@ -41,7 +41,15 @@ const SignUpScreen = () => {
     }
   };
   const onSignup = async () => {
-    const response = await signup(fullName, email, password);
+    const {success, data} = await sendOtp(email);
+    console.log('data', data);
+    if (success) {
+      navigation.navigate('OtpScreen', {
+        email: email,
+        password: password,
+        fullName: fullName,
+      });
+    }
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>

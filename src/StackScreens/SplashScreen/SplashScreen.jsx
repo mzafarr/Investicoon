@@ -21,29 +21,29 @@ const Splashscreen = () => {
     useLocalStorage();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const fetchData = async () => {
-    try {
-      // const companies = ['Apple'];
-      dispatch(fetchDataStart());
-      const companies = ['Apple', 'Microsoft', 'Tesla', 'Amazon', 'Meta'];
-      const responses = [];
-      for (const company of companies) {
-        const stocksData = await getStocksTimePeriod(company, '1D');
-        console.log('stocksData', stocksData);
-        if (stocksData) {
-          responses.push(stocksData);
-        }
-      }
-      console.log(responses);
-      await saveDataToStorage(responses);
-      dispatch(fetchDataSuccess(responses));
-      SplashScreen.hide();
-      navigation.navigate('Tabs');
-    } catch (error) {
-      console.error('Error fetching and saving data:', error);
-      dispatch(fetchDataFailure(error));
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     // const companies = ['Apple'];
+  //     dispatch(fetchDataStart());
+  //     const companies = ['Apple', 'Microsoft', 'Tesla', 'Amazon', 'Meta'];
+  //     const responses = [];
+  //     for (const company of companies) {
+  //       const stocksData = await getStocksTimePeriod(company, '1D');
+  //       console.log('stocksData', stocksData);
+  //       if (stocksData) {
+  //         responses.push(stocksData);
+  //       }
+  //     }
+  //     console.log(responses);
+  //     await saveDataToStorage(responses);
+  //     dispatch(fetchDataSuccess(responses));
+  //     SplashScreen.hide();
+  //     navigation.navigate('Tabs');
+  //   } catch (error) {
+  //     console.error('Error fetching and saving data:', error);
+  //     dispatch(fetchDataFailure(error));
+  //   }
+  // };
   useEffect(() => {
     // AsyncStorage.clear();
     // const checkAndUpdateData = async () => {
@@ -72,7 +72,7 @@ const Splashscreen = () => {
     // };
     // checkAndUpdateData();
     SplashScreen.hide();
-    navigation.navigate('OnboardingScreen');
+    navigation.navigate('Tabs');
   }, []);
   return (
     <View style={styles.container}>

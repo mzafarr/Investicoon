@@ -14,9 +14,9 @@ export const defaultStyles = StyleSheet.create({
     color: Colors.white,
   },
   pillButton: {
-    padding: 10,
-    height: 60,
-    borderRadius: 40,
+    padding: widthToDp(3),
+    height: widthToDp(15),
+    borderRadius: widthToDp(15),
     justifyContent: 'center',
     alignItems: 'center',
   },

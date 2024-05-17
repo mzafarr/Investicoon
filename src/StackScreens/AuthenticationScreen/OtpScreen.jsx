@@ -16,9 +16,14 @@ import {
 import Colors from '../../../assets/Colors';
 import {defaultStyles} from '../../../assets/Styles';
 import {useNavigation} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+import useAuth from '../../CustomHooks/useAuth/useAuth';
 const CELL_COUNT = 6;
 
-const OtpScreen = () => {
+const OtpScreen = ({route}) => {
+  const {signup} = useAuth();
+
+  const {email, password, fullName} = route.params;
   const [code, setCode] = useState('');
   const navigation = useNavigation();
 
@@ -28,9 +33,20 @@ const OtpScreen = () => {
     setValue: setCode,
   });
 
+  const onSignUp = async () => {
+    const {success, data} = await signup(fullName, email, password, code);
+    console.log('APage', success, data);
+    if (success) {
+      Toast.show({
+        type: 'success',
+        text1: 'Account created successfully',
+      });
+      navigation.navigate('Tabs');
+    }
+  };
   useEffect(() => {
     if (code.length === 6) {
-      navigation.navigate('Tabs');
+      onSignUp();
     }
   }, [code]);
 
@@ -56,7 +72,7 @@ const OtpScreen = () => {
           value={code}
           onChangeText={setCode}
           cellCount={CELL_COUNT}
-          autoFocus={true}
+          // autoFocus={true}
           rootStyle={styles.codeFieldRoot}
           keyboardType="number-pad"
           textContentType="oneTimeCode"
