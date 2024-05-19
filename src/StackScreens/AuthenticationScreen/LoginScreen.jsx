@@ -90,7 +90,7 @@ const LoginScreen = () => {
               Don't have an account? Sign Up
             </Text>
           </TouchableOpacity>
-          <View style={{flexDirection: 'row', alignItems: 'center', gap: 16}}>
+          <View style={{flexDirection: 'row', gap: 16}}>
             <View
               style={{
                 flex: 1,

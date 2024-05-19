@@ -28,20 +28,35 @@ const SignUpScreen = () => {
   const navigation = useNavigation();
   const checkEmail = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    console.log(emailRegex.test(email));
     if (!emailRegex.test(email)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+  const isPasswordValid = () => {
+    return password.length > 8;
+  };
+
+  const onSignup = async () => {
+    const emailCheck = await checkEmail();
+    const passwordCheck = isPasswordValid();
+    if (emailCheck && passwordCheck) {
+      setLoading(true);
+      await sendOtp(fullName, email, password);
+      setLoading(false);
+    }
+    if (!emailCheck) {
       Toast.show({
         type: 'error',
         text1: 'Invalid Email',
       });
-    } else {
-      setLoading(true);
-      await onSignup();
-      setLoading(false);
+    } else if (!passwordCheck) {
+      Toast.show({
+        type: 'error',
+        text1: 'Password must be more than 8 characters',
+      });
     }
-  };
-  const onSignup = async () => {
-    await sendOtp(email, password, fullName);
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
@@ -83,7 +98,7 @@ const SignUpScreen = () => {
             email={email}
             fullName={fullName}
             password={password}
-            onPress={() => checkEmail()}
+            onPress={() => onSignup()}
             loading={loading}
           />
         </View>

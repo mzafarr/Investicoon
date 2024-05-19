@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     marginVertical: widthToDp(3),
     backgroundColor: Colors.lightGray,
     borderRadius: widthToDp(4),
-    //
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../../assets/Colors';
-import {BlurView} from '@react-native-community/blur';
+// import {BlurView} from '@react-native-community/blur';
 import {heightToDp, widthToDp} from '../../utils/Responsive';
 import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import {defaultStyles} from '../../../assets/Styles';
@@ -60,13 +60,13 @@ const ProfileScreen = () => {
   useEffect(() => {}, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <BlurView
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
+      {/* <BlurView
         style={styles.absolute}
         blurType="dark"
         blurAmount={32}
         reducedTransparencyFallbackColor="white"
-      />
+      /> */}
       <View style={{alignItems: 'center', paddingTop: heightToDp(10)}}>
         <View style={{flexDirection: 'row', gap: 6}}>
           <View style={styles.editRow}>

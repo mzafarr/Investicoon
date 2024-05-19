@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions, useNavigation} from '@react-navigation/native';
+import {
+  CommonActions,
+  StackActions,
+  useNavigation,
+  NavigationActions,
+} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import AsyncStorageFunction from '../../utils/AsyncStorageFunction';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,8 +25,6 @@ const useAuth = () => {
       },
     });
     const data = await response.json();
-    console.log('Hi', data);
-
     if (data?.status === 200) {
       dispatch(saveUserData(data?.user));
     }
@@ -89,6 +92,7 @@ const useAuth = () => {
       console.log('Parsed data:', data);
       if (data.status === 200) {
         console.log('Signup successful:', data);
+        await getUserData(data?.access_token);
         await AsyncSetItem(tokenName, data?.access_token);
         Toast.show({
           type: 'success',
@@ -146,12 +150,10 @@ const useAuth = () => {
       type: 'success',
       text1: 'Logout successful',
     });
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        actions: [CommonActions.navigate({routeName: 'LoginScreen'})],
-      }),
-    );
+    navigation.reset({
+      index: 1,
+      routes: [{name: 'LoginScreen'}],
+    });
   };
   const deleteAccount = async () => {
     try {
@@ -220,7 +222,8 @@ const useAuth = () => {
   };
   const suggestFeature = async (userEmail, title, description) => {
     try {
-      const response = await fetch(`${API_LINK}/feature-request`, {
+      console.log('suggestFeature', userEmail, title, description);
+      const response = await fetch(`${API_LINK}/api/feature-request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -231,17 +234,18 @@ const useAuth = () => {
           description: description,
         }),
       });
-      // const data = await response.json();
-      const responseText = await response.text();
-      console.log(responseText);
-      const data = JSON.parse(responseText);
+      const data = await response.json();
+      // const responseText = await response.text();
+      // console.log(responseText);
+      // const data = JSON.parse(responseText);
 
-      console.log('Parsed data:', data);
+      // console.log('Parsed data:', data);
       if (data?.status === 200) {
         Toast.show({
           type: 'success',
           text1: 'Request submitted successfully',
         });
+        navigation.goBack();
       } else {
         Toast.show({
           type: 'error',

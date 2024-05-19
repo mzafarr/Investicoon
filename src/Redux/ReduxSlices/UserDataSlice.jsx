@@ -9,7 +9,7 @@ export const UserDataSlice = createSlice({
   initialState,
   reducers: {
     saveUserData: (state, action) => {
-      console.log('Data from UserDataSlice', action.payload);
+      // console.log('Data from UserDataSlice', action.payload);
       state.data = action.payload;
     },
   },
