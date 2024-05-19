@@ -15,6 +15,9 @@ import Colors from '../../assets/Colors';
 import {widthToDp} from '../utils/Responsive';
 import Splashscreen from '../StackScreens/SplashScreen/SplashScreen';
 import CompanyViewScreen from '../StackScreens/CompanyViewScreen/CompanyViewScreen';
+import ChangePasswordScreen from '../StackScreens/ChangePasswordScreen/ChangePasswordScreen';
+import FeatureScreen from '../StackScreens/FeatureScreen/FeatureScreen';
+import {Platform} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,9 +32,8 @@ function TabNavigator() {
         gestureEnabled: true,
         gestureDirection: 'horizontal',
         tabBarStyle: {
-          height: widthToDp(20),
-          paddingHorizontal: widthToDp(1),
-          paddingTop: 0,
+          height: Platform.OS === 'ios' ? widthToDp(20) : widthToDp(17),
+          paddingBottom: Platform.OS === 'ios' ? widthToDp(5) : widthToDp(4),
           backgroundColor: Colors.backgroundColor,
           position: 'absolute',
           borderTopWidth: 0,
@@ -61,7 +63,6 @@ function TabNavigator() {
   );
 }
 
-// Define stack navigation
 function NavigationScreens() {
   return (
     <Stack.Navigator initialRouteName="Splashscreen">
@@ -71,20 +72,21 @@ function NavigationScreens() {
         component={OnboardingScreen}
       />
       <Stack.Screen
-        name="SignUpScreen"
-        options={{headerShown: false}}
-        component={SignUpScreen}
-      />
-      <Stack.Screen
         name="LoginScreen"
         options={{headerShown: false}}
         component={LoginScreen}
+      />
+      <Stack.Screen
+        name="SignUpScreen"
+        options={{headerShown: false}}
+        component={SignUpScreen}
       />
       <Stack.Screen
         name="OtpScreen"
         options={{headerShown: false}}
         component={OtpScreen}
       />
+
       <Stack.Screen
         name="Tabs"
         options={{headerShown: false}}
@@ -104,6 +106,16 @@ function NavigationScreens() {
         name="CompanyViewScreen"
         options={{headerShown: false}}
         component={CompanyViewScreen}
+      />
+      <Stack.Screen
+        name="ChangePasswordScreen"
+        options={{headerShown: false}}
+        component={ChangePasswordScreen}
+      />
+      <Stack.Screen
+        name="FeatureScreen"
+        options={{headerShown: false}}
+        component={FeatureScreen}
       />
     </Stack.Navigator>
   );

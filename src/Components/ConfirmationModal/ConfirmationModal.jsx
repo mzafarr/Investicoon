@@ -14,6 +14,7 @@ const ConfirmationModal = ({
   NegativeOnPress,
   PositiveButtonText,
   PositiveOnPress,
+  PositiveLoading,
 }) => {
   return (
     <CustomBottomSheet snapPoints={snapPoints} bottomSheetRef={bottomSheetRef}>
@@ -46,6 +47,7 @@ const ConfirmationModal = ({
             password={true}
             onPress={PositiveOnPress}
             TouchStyles={{width: widthToDp(30)}}
+            loading={PositiveLoading}
           />
         </View>
       </View>

@@ -34,15 +34,11 @@ const OtpScreen = ({route}) => {
   });
 
   const onSignUp = async () => {
-    const {success, data} = await signup(fullName, email, password, code);
-    console.log('APage', success, data);
-    if (success) {
-      Toast.show({
-        type: 'success',
-        text1: 'Account created successfully',
-      });
-      navigation.navigate('Tabs');
-    }
+    Toast.show({
+      type: 'success',
+      text1: 'Loading',
+    });
+    await signup(fullName, email, password, code);
   };
   useEffect(() => {
     if (code.length === 6) {
@@ -59,7 +55,7 @@ const OtpScreen = ({route}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
       <View style={defaultStyles.container}>
         <Text style={defaultStyles.header}>6-digit code</Text>
         <Text style={defaultStyles.descriptionText}>

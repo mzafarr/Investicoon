@@ -49,27 +49,7 @@ const LoginScreen = () => {
     }
   };
   const onSignIn = async () => {
-    const {data} = await login(email, password);
-    console.log('Here', data?.status);
-    if (data?.access_token) {
-      console.log('data', data?.access_token);
-      await AsyncStorage.setItem('access_token', data?.access_token);
-      navigation.navigate('Tabs');
-      Toast.show({
-        type: 'success',
-        text1: 'Login successful',
-      });
-    } else if (data?.status === 401) {
-      Toast.show({
-        type: 'error',
-        text1: 'Invalid credentials',
-      });
-    } else {
-      Toast.show({
-        type: 'error',
-        text1: 'Something went wrong',
-      });
-    }
+    await login(email, password);
   };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -103,7 +83,13 @@ const LoginScreen = () => {
             onPress={() => checkEmail()}
             loading={loading}
           />
-
+          <TouchableOpacity
+            style={{alignSelf: 'center', marginVertical: widthToDp(5)}}
+            onPress={() => navigation.navigate('SignUpScreen')}>
+            <Text style={defaultStyles.textLink}>
+              Don't have an account? Sign Up
+            </Text>
+          </TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center', gap: 16}}>
             <View
               style={{
@@ -158,10 +144,6 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    marginVertical: 40,
-    flexDirection: 'row',
-  },
   input: {
     backgroundColor: Colors.lightGray,
     padding: 20,

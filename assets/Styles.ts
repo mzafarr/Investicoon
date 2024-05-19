@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import Colors from './Colors';
 import {widthToDp} from '../src/utils/Responsive';
 
@@ -6,7 +6,7 @@ export const defaultStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    padding: widthToDp(5),
+    padding: Platform.OS === 'ios' ? widthToDp(5) : widthToDp(3),
   },
   header: {
     fontSize: widthToDp(11),

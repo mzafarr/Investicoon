@@ -1,4 +1,5 @@
 import {
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -24,7 +25,13 @@ const CustomTextInput = ({
     setSecureText(!secureText);
   };
   return (
-    <View style={[styles.inputContainer]}>
+    <View
+      style={[
+        styles.inputContainer,
+        Platform.OS === 'ios'
+          ? {padding: widthToDp(5), marginRight: widthToDp(2)}
+          : {padding: widthToDp(3)},
+      ]}>
       <TextInput
         style={[styles.input]}
         placeholder={placeholder}
@@ -57,8 +64,7 @@ const styles = StyleSheet.create({
     marginVertical: widthToDp(3),
     backgroundColor: Colors.lightGray,
     borderRadius: widthToDp(4),
-    marginRight: widthToDp(2),
-    padding: widthToDp(5),
+    //
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

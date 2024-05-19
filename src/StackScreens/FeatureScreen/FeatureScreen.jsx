@@ -18,72 +18,61 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Toast from 'react-native-toast-message';
 import useAuth from '../../CustomHooks/useAuth/useAuth';
 import PillButton from '../../Components/PillButton/PillButton';
+import HeaderBar from '../../Components/HeaderBar/HeaderBar';
+import {useSelector} from 'react-redux';
 
-const SignUpScreen = () => {
-  const {sendOtp} = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
+const FeatureScreen = () => {
+  const {suggestFeature} = useAuth();
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigation = useNavigation();
-  const checkEmail = async () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    console.log(emailRegex.test(email));
-    if (!emailRegex.test(email)) {
+  const userEmail = useSelector(state => state?.userData?.data?.email);
+  const callFeatureApi = async () => {
+    if (title && description) {
+      setLoading(true);
+      await suggestFeature(userEmail, title, description);
+      setLoading(false);
+    } else {
       Toast.show({
         type: 'error',
-        text1: 'Invalid Email',
+        text1: 'Please fill all the fields',
       });
-    } else {
-      setLoading(true);
-      await onSignup();
-      setLoading(false);
     }
-  };
-  const onSignup = async () => {
-    await sendOtp(email, password, fullName);
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
       <ScrollView contentContainerStyle={{flex: 1}}>
+        <HeaderBar />
         <View style={defaultStyles.container}>
-          <Text style={defaultStyles.header}>Let's get started!</Text>
+          <Text style={[defaultStyles.header, {fontSize: widthToDp(10)}]}>
+            Suggest a Feature!
+          </Text>
           <Text style={defaultStyles.descriptionText}>
-            Enter your email address. We will send you a confirmation code there
+            We are happy to see you helping us grow. We would love to hear
+            you're feedback and suggestions.
           </Text>
           <CustomTextInput
-            placeholder="Full Name"
+            placeholder="Title"
             placeholderTextColor={Colors.gray}
-            value={fullName}
-            onChangeText={setFullName}
+            value={title}
+            onChangeText={setTitle}
           />
           <CustomTextInput
-            placeholder="Email Address"
+            placeholder="Description"
             placeholderTextColor={Colors.gray}
-            value={email}
-            onChangeText={setEmail}
+            value={description}
+            onChangeText={setDescription}
+            multiline={true}
+            height={150}
           />
-          <CustomTextInput
-            placeholder="Password"
-            placeholderTextColor={Colors.gray}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={true}
-          />
-          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
-            <Text style={defaultStyles.textLink}>
-              Already have an account? Log in
-            </Text>
-          </TouchableOpacity>
-
           <View style={{flex: 1}} />
 
           <PillButton
-            ButtonText="Sign up"
-            email={email}
-            fullName={fullName}
-            password={password}
-            onPress={() => checkEmail()}
+            ButtonText="Submit Request"
+            email={title}
+            fullName={true}
+            password={description}
+            onPress={() => callFeatureApi()}
             loading={loading}
           />
         </View>
@@ -112,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpScreen;
+export default FeatureScreen;

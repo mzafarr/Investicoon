@@ -8,9 +8,7 @@ import Colors from '../../../assets/Colors';
 import {defaultStyles} from '../../../assets/Styles';
 
 const CustomBottomSheet = ({snapPoints, children, bottomSheetRef}) => {
-  const handleSheetChanges = useCallback(index => {
-    console.log('handleSheetChanges', index);
-  }, []);
+  const handleSheetChanges = useCallback(index => {}, []);
 
   return (
     <BottomSheetModal

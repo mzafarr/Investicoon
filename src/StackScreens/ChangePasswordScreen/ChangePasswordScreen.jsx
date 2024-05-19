@@ -18,72 +18,69 @@ import CustomTextInput from '../../Components/CustomTextInput/CustomTextInput';
 import Toast from 'react-native-toast-message';
 import useAuth from '../../CustomHooks/useAuth/useAuth';
 import PillButton from '../../Components/PillButton/PillButton';
+import HeaderBar from '../../Components/HeaderBar/HeaderBar';
 
-const SignUpScreen = () => {
-  const {sendOtp} = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
+const ChangePasswordScreen = () => {
+  const {changePassword} = useAuth();
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigation = useNavigation();
-  const checkEmail = async () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    console.log(emailRegex.test(email));
-    if (!emailRegex.test(email)) {
+
+  const callChangePassword = async () => {
+    if (newPassword !== confirmPassword) {
       Toast.show({
         type: 'error',
-        text1: 'Invalid Email',
+        text1: 'Passwords do not match',
       });
     } else {
       setLoading(true);
-      await onSignup();
+      await changePassword(oldPassword, newPassword);
       setLoading(false);
     }
-  };
-  const onSignup = async () => {
-    await sendOtp(email, password, fullName);
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
       <ScrollView contentContainerStyle={{flex: 1}}>
+        <HeaderBar />
         <View style={defaultStyles.container}>
-          <Text style={defaultStyles.header}>Let's get started!</Text>
+          <Text style={[defaultStyles.header, {fontSize: widthToDp(10)}]}>
+            Change Password!
+          </Text>
           <Text style={defaultStyles.descriptionText}>
-            Enter your email address. We will send you a confirmation code there
+            Please enter a strong password container capital letters, numbers
+            and special characters.
           </Text>
           <CustomTextInput
-            placeholder="Full Name"
+            placeholder="Old Password"
             placeholderTextColor={Colors.gray}
-            value={fullName}
-            onChangeText={setFullName}
+            value={oldPassword}
+            secureTextEntry={true}
+            onChangeText={setOldPassword}
           />
           <CustomTextInput
-            placeholder="Email Address"
+            placeholder="New Password"
             placeholderTextColor={Colors.gray}
-            value={email}
-            onChangeText={setEmail}
-          />
-          <CustomTextInput
-            placeholder="Password"
-            placeholderTextColor={Colors.gray}
-            value={password}
-            onChangeText={setPassword}
+            value={newPassword}
+            onChangeText={setNewPassword}
             secureTextEntry={true}
           />
-          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
-            <Text style={defaultStyles.textLink}>
-              Already have an account? Log in
-            </Text>
-          </TouchableOpacity>
+          <CustomTextInput
+            placeholder="Confirm New Password"
+            placeholderTextColor={Colors.gray}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry={true}
+          />
 
           <View style={{flex: 1}} />
 
           <PillButton
-            ButtonText="Sign up"
-            email={email}
-            fullName={fullName}
-            password={password}
-            onPress={() => checkEmail()}
+            ButtonText="Change Password"
+            email={oldPassword}
+            fullName={newPassword}
+            password={confirmPassword}
+            onPress={() => callChangePassword()}
             loading={loading}
           />
         </View>
@@ -112,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpScreen;
+export default ChangePasswordScreen;

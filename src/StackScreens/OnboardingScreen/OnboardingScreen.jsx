@@ -16,19 +16,18 @@ const OnboardingScreen = () => {
   const intro = require('../../../assets/videos/intro.mp4');
   return (
     <SafeAreaView style={{flex: 1}}>
+      <Video
+        source={intro}
+        ref={ref => {
+          this.player = ref;
+        }}
+        resizeMode="cover"
+        onBuffer={this.onBuffer}
+        onError={this.videoError}
+        style={styles.video}
+        repeat={true}
+      />
       <View style={styles.container}>
-        <Video
-          source={intro}
-          ref={ref => {
-            this.player = ref;
-          }} // Store reference
-          resizeMode="cover"
-          onBuffer={this.onBuffer}
-          onError={this.videoError}
-          style={styles.video}
-          repeat={true}
-        />
-
         <View style={{marginTop: widthToDp(15), padding: widthToDp(5)}}>
           <Text style={styles.header}>Ready to change the way you money?</Text>
         </View>
