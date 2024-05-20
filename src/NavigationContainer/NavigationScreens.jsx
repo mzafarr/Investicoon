@@ -1,5 +1,4 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import SubscriptionScreen from '../StackScreens/TabNavigationScreen/SubscriptionScreen';
 import HomeScreen from '../StackScreens/TabNavigationScreen/HomeScreen';
@@ -17,9 +16,10 @@ import Splashscreen from '../StackScreens/SplashScreen/SplashScreen';
 import CompanyViewScreen from '../StackScreens/CompanyViewScreen/CompanyViewScreen';
 import ChangePasswordScreen from '../StackScreens/ChangePasswordScreen/ChangePasswordScreen';
 import FeatureScreen from '../StackScreens/FeatureScreen/FeatureScreen';
-import {Platform} from 'react-native';
+import {Platform, View} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
@@ -65,58 +65,26 @@ function TabNavigator() {
 
 function NavigationScreens() {
   return (
-    <Stack.Navigator initialRouteName="Splashscreen">
-      <Stack.Screen
-        name="OnboardingScreen"
-        options={{headerShown: false}}
-        component={OnboardingScreen}
-      />
-      <Stack.Screen
-        name="LoginScreen"
-        options={{headerShown: false}}
-        component={LoginScreen}
-      />
-      <Stack.Screen
-        name="SignUpScreen"
-        options={{headerShown: false}}
-        component={SignUpScreen}
-      />
-      <Stack.Screen
-        name="OtpScreen"
-        options={{headerShown: false}}
-        component={OtpScreen}
-      />
+    <Stack.Navigator
+      initialRouteName="Splashscreen"
+      gestureEnabled={true}
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+      <Stack.Screen name="OtpScreen" component={OtpScreen} />
 
-      <Stack.Screen
-        name="Tabs"
-        options={{headerShown: false}}
-        component={TabNavigator}
-      />
-      <Stack.Screen
-        name="Splashscreen"
-        options={{headerShown: false}}
-        component={Splashscreen}
-      />
-      <Stack.Screen
-        name="DetailsScreen"
-        options={{headerShown: false}}
-        component={DetailsScreen}
-      />
-      <Stack.Screen
-        name="CompanyViewScreen"
-        options={{headerShown: false}}
-        component={CompanyViewScreen}
-      />
+      <Stack.Screen name="Tabs" component={TabNavigator} />
+      <Stack.Screen name="Splashscreen" component={Splashscreen} />
+      <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+      <Stack.Screen name="CompanyViewScreen" component={CompanyViewScreen} />
       <Stack.Screen
         name="ChangePasswordScreen"
-        options={{headerShown: false}}
         component={ChangePasswordScreen}
       />
-      <Stack.Screen
-        name="FeatureScreen"
-        options={{headerShown: false}}
-        component={FeatureScreen}
-      />
+      <Stack.Screen name="FeatureScreen" component={FeatureScreen} />
     </Stack.Navigator>
   );
 }

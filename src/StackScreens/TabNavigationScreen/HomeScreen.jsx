@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -10,12 +10,17 @@ import {
 } from 'react-native';
 import Colors from '../../../assets/Colors';
 import {useStockApi} from '../../CustomHooks/useStockApi/useStockApi';
-import {heightToDp, widthToDp} from '../../utils/Responsive';
+import {heightToDp, widthToDp, window} from '../../utils/Responsive';
 import {LineChart} from 'react-native-gifted-charts';
 import HomeGraph from '../../Components/HomeGraphComponent/HomeGraph';
 import AnimatedBar from '../../Components/AnimatedBar/AnimatedBar';
 import HomeRowTab from '../../Components/HomeRowTab/HomeRowTab';
 import SplashScreen from 'react-native-splash-screen';
+import {useSharedValue} from 'react-native-reanimated';
+import {useWindowDimensions} from 'react-native';
+import Carousel from 'react-native-reanimated-carousel';
+const PAGE_WIDTH = window.width;
+
 const HomeScreen = ({navigation}) => {
   const [cName, setcName] = useState('');
   const {getStocks} = useStockApi();
@@ -146,19 +151,66 @@ const HomeScreen = ({navigation}) => {
     {value: 240, date: '1 May 2022'},
     {value: 250, date: '2 May 2022'},
   ];
+
+  const windowWidth = useWindowDimensions().width;
+  const scrollOffsetValue = useSharedValue(0);
+  const [data, setData] = useState([...new Array(4).keys()]);
+  const [isVertical, setIsVertical] = useState(false);
+  const [isFast, setIsFast] = useState(false);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
+  const [isPagingEnabled, setIsPagingEnabled] = useState(true);
+  const ref = useRef(null);
+  const baseOptions = isVertical
+    ? {
+        vertical: true,
+        width: windowWidth,
+        height: PAGE_WIDTH / 2,
+      }
+    : {
+        vertical: false,
+        width: windowWidth,
+        height: PAGE_WIDTH - heightToDp(10),
+      };
   const navigateToCompanyOverview = () => {
     navigation.navigate('CompanyViewScreen');
   };
   useEffect(() => {
     SplashScreen.hide();
   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: widthToDp(15)}}>
-        <View style={{marginTop: widthToDp(5)}}>
-          <ScrollView
+        <View
+          style={{
+            marginTop: widthToDp(3),
+          }}>
+          <Carousel
+            {...baseOptions}
+            loop={true}
+            enabled
+            ref={ref}
+            defaultScrollOffsetValue={scrollOffsetValue}
+            testID={'xxx'}
+            style={{width: '100%'}}
+            autoPlay={isAutoPlay}
+            autoPlayInterval={isFast ? 100 : 2000}
+            data={data}
+            pagingEnabled={isPagingEnabled}
+            mode="parallax"
+            renderItem={({index}) => (
+              <View style={{}}>
+                <HomeGraph
+                  companyData={companyData}
+                  graphData={ptData}
+                  onPress={() => navigateToCompanyOverview()}
+                />
+              </View>
+            )}
+          />
+          {/* <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
@@ -190,7 +242,7 @@ const HomeScreen = ({navigation}) => {
               graphData={ptData}
               onPress={() => navigateToCompanyOverview()}
             />
-          </ScrollView>
+          </ScrollView> */}
         </View>
         <View style={{marginTop: widthToDp(5)}}>
           <AnimatedBar />

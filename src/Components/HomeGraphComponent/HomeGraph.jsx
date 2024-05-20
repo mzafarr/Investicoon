@@ -27,7 +27,7 @@ const HomeGraph = ({companyData, onPress, graphData}) => {
         </View>
         <View
           style={{
-            width: widthToDp(95),
+            width: widthToDp(100),
             paddingBottom: widthToDp(10),
           }}>
           <LineChart
@@ -36,7 +36,7 @@ const HomeGraph = ({companyData, onPress, graphData}) => {
             rotateLabel
             yAxisOffset={graphData[0].value - 20}
             hideDataPoints
-            spacing={12}
+            spacing={15}
             color="#00ff83"
             thickness={2}
             startFillColor="rgba(20,105,81,0.3)"

@@ -9,6 +9,7 @@ import Toast from 'react-native-toast-message';
 import AsyncStorageFunction from '../../utils/AsyncStorageFunction';
 import {useDispatch, useSelector} from 'react-redux';
 import {saveUserData} from '../../Redux/ReduxSlices/UserDataSlice';
+import axios from 'axios';
 
 const API_LINK = 'https://temporary-weld.vercel.app';
 const tokenName = 'access_token';
@@ -17,7 +18,7 @@ const useAuth = () => {
   const dispatch = useDispatch();
   const {AsyncSetItem, AsyncGetItem, AsyncRemoveItem} = AsyncStorageFunction();
   const getUserData = async token => {
-    console.log('Am I running');
+    // console.log('Am I running');
     const response = await fetch(`${API_LINK}/api/user?accessToken=${token}`, {
       method: 'GET',
       headers: {
@@ -27,6 +28,11 @@ const useAuth = () => {
     const data = await response.json();
     if (data?.status === 200) {
       dispatch(saveUserData(data?.user));
+    } else if (data?.status !== 400) {
+      Toast.show({
+        type: 'error',
+        text1: 'Something went wrong',
+      });
     }
     return data;
   };
@@ -73,24 +79,27 @@ const useAuth = () => {
     }
   };
   const signup = async (name, email, password, code) => {
+    const numberCode = parseInt(code, 10);
+    console.log(
+      'signup',
+      typeof name,
+      typeof email,
+      typeof password,
+      typeof numberCode,
+    );
+    console.log('signup', name, email, password, numberCode);
     try {
-      const response = await fetch(`${API_LINK}/api/signup/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-          otp: code,
-        }),
+      const response = await axios.post(`${API_LINK}/api/signup/`, {
+        name: name,
+        email: email,
+        password: password,
+        otp: numberCode,
       });
-      const responseText = await response.text();
-      const data = JSON.parse(responseText);
+
+      const data = response?.data;
 
       console.log('Parsed data:', data);
-      if (data.status === 200) {
+      if (response.status === 200) {
         console.log('Signup successful:', data);
         await getUserData(data?.access_token);
         await AsyncSetItem(tokenName, data?.access_token);
@@ -98,27 +107,28 @@ const useAuth = () => {
           type: 'success',
           text1: 'Account created successfully',
         });
-        navigation.navigate('Tabs');
-      } else if (data.status === 400) {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Tabs'}],
+        });
+      } else if (response.status === 400) {
         Toast.show({
           type: 'error',
           text1: 'An error occurred',
         });
       } else {
-        return {
-          success: false,
-          error: data.message || data.errors?.[0]?.msg || 'An error occurred',
-        };
+        console.log('Signup error here:', data);
       }
     } catch (error) {
       console.error('Signup error:', error);
-      return {
-        success: false,
-        error: 'An error occurred. Please try again later.',
-      };
+      Toast.show({
+        type: 'error',
+        text1: 'An error occurred. Please try again later.',
+      });
     }
   };
-  const sendOtp = async (email, password, fullName) => {
+  const sendOtp = async (fullName, email, password) => {
+    console.log('sendOtp', fullName, email, password);
     try {
       const response = await fetch(`${API_LINK}/api/otp/`, {
         method: 'POST',
@@ -137,8 +147,13 @@ const useAuth = () => {
           password: password,
           fullName: fullName,
         });
+      } else if (data.status !== 200) {
+        Toast.show({
+          type: 'error',
+          text1: 'An error occurred. Please try again later.',
+        });
       } else {
-        return {success: false, error: data.message};
+        console.log('OTP error here:', data);
       }
     } catch (error) {
       console.error('OTP error:', error);
@@ -151,7 +166,7 @@ const useAuth = () => {
       text1: 'Logout successful',
     });
     navigation.reset({
-      index: 1,
+      index: 0,
       routes: [{name: 'LoginScreen'}],
     });
   };

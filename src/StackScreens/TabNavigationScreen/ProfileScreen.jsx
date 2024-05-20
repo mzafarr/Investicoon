@@ -24,7 +24,7 @@ import {useSelector} from 'react-redux';
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const user = useSelector(state => state?.userData?.data);
-  console.log(user);
+  // console.log(user);
   const {logout, deleteAccount, suggestFeature} = useAuth();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

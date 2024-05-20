@@ -27,9 +27,8 @@ const Splashscreen = () => {
   };
   const fetchAccessToken = async () => {
     try {
-      console.log('fetchAccessToken');
       const token = await AsyncGetItem(access_token);
-      console.log(token);
+      // console.log(token);
       await getUserData(token);
       navigation.navigate('Tabs');
       if (token) {

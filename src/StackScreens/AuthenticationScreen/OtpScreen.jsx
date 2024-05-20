@@ -23,7 +23,7 @@ const CELL_COUNT = 6;
 const OtpScreen = ({route}) => {
   const {signup} = useAuth();
 
-  const {email, password, fullName} = route.params;
+  const {fullName, email, password} = route.params;
   const [code, setCode] = useState('');
   const navigation = useNavigation();
 
@@ -32,7 +32,7 @@ const OtpScreen = ({route}) => {
     value: code,
     setValue: setCode,
   });
-
+  console.log('OtpScreen', fullName, email, password);
   const onSignUp = async () => {
     Toast.show({
       type: 'success',
@@ -45,14 +45,6 @@ const OtpScreen = ({route}) => {
       onSignUp();
     }
   }, [code]);
-
-  const verifyCode = async () => {
-    console.log('email', code);
-  };
-
-  const verifySignIn = async () => {
-    console.log('email', code);
-  };
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>

@@ -35,7 +35,7 @@ const SignUpScreen = () => {
     }
   };
   const isPasswordValid = () => {
-    return password.length > 8;
+    return password.length >= 8;
   };
 
   const onSignup = async () => {
@@ -43,6 +43,7 @@ const SignUpScreen = () => {
     const passwordCheck = isPasswordValid();
     if (emailCheck && passwordCheck) {
       setLoading(true);
+      console.log('SignUpScreen', fullName, email, password);
       await sendOtp(fullName, email, password);
       setLoading(false);
     }

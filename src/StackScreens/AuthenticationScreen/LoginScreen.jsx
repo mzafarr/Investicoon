@@ -90,7 +90,31 @@ const LoginScreen = () => {
               Don't have an account? Sign Up
             </Text>
           </TouchableOpacity>
-          <View style={{flexDirection: 'row', gap: 16}}>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  input: {
+    backgroundColor: Colors.lightGray,
+    padding: 20,
+    borderRadius: 16,
+    fontSize: 20,
+    marginRight: 10,
+  },
+  enabled: {
+    backgroundColor: Colors.primary,
+  },
+  disabled: {
+    backgroundColor: Colors.primaryMuted,
+  },
+});
+
+export default LoginScreen;
+{
+  /* <View style={{flexDirection: 'row', gap: 16}}>
             <View
               style={{
                 flex: 1,
@@ -136,27 +160,5 @@ const LoginScreen = () => {
             <Text style={[defaultStyles.buttonText, {color: '#fff'}]}>
               Continue with Apple{' '}
             </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  input: {
-    backgroundColor: Colors.lightGray,
-    padding: 20,
-    borderRadius: 16,
-    fontSize: 20,
-    marginRight: 10,
-  },
-  enabled: {
-    backgroundColor: Colors.primary,
-  },
-  disabled: {
-    backgroundColor: Colors.primaryMuted,
-  },
-});
-
-export default LoginScreen;
+          </TouchableOpacity> */
+}

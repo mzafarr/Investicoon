@@ -10,5 +10,5 @@ const heightToDp = number => {
   let givenheight = typeof number === 'number' ? number : parseFloat(number);
   return PixelRatio.roundToNearestPixel((height * givenheight) / 100);
 };
-
-export {widthToDp, heightToDp};
+const window = Dimensions.get('window');
+export {widthToDp, heightToDp, window};
