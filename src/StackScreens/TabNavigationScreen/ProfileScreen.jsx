@@ -98,63 +98,6 @@ const ProfileScreen = () => {
           <Text style={{color: '#fff', fontSize: 18}}>Log out</Text>
         </TouchableOpacity>
       </View>
-      {/* 
-      <CustomBottomSheet
-        snapPoints={snapPoints}
-        bottomSheetRef={bottomSheetRef}
-        setBottomSheetVisible={setBottomSheetVisible}
-        bottomSheetVisible={bottomSheetVisible}>
-        <View style={{alignSelf: 'center'}}>
-          <Text
-            style={[
-              defaultStyles.sectionHeader,
-              {alignSelf: 'center', color: '#fff'},
-            ]}>
-            Suggest A Feature
-          </Text>
-          <CustomTextInput
-            placeholder="Title"
-            placeholderTextColor={Colors.gray}
-            value={title}
-            onChangeText={setTitle}
-          />
-          <CustomTextInput
-            placeholder="Description"
-            placeholderTextColor={Colors.gray}
-            value={description}
-            onChangeText={setDescription}
-            multiline={true}
-            height={150}
-          />
-          <View
-            style={{
-              width: widthToDp(80),
-              alignSelf: 'center',
-              marginTop: widthToDp(5),
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <PillButton
-              ButtonText="Cancel"
-              email={true}
-              password={true}
-              onPress={() => handleClosePress()}
-              TouchStyles={{
-                width: widthToDp(30),
-                backgroundColor: Colors.red,
-              }}
-            />
-            <PillButton
-              ButtonText="Submit"
-              email={title}
-              password={description}
-              onPress={() => callSuggestFeature()}
-              loading={loading}
-              TouchStyles={{width: widthToDp(30)}}
-            />
-          </View>
-        </View>
-      </CustomBottomSheet> */}
 
       <ConfirmationModal
         snapPoints={confirmationSnapPoints}

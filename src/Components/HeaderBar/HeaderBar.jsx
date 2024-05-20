@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Colors from '../../../assets/Colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -24,6 +24,6 @@ export default HeaderBar;
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: widthToDp(2),
+    marginVertical: Platform.OS === 'ios' ? widthToDp(3) : widthToDp(5),
   },
 });

@@ -32,7 +32,6 @@ const OtpScreen = ({route}) => {
     value: code,
     setValue: setCode,
   });
-  console.log('OtpScreen', fullName, email, password);
   const onSignUp = async () => {
     Toast.show({
       type: 'success',

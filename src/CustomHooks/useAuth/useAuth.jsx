@@ -18,23 +18,29 @@ const useAuth = () => {
   const dispatch = useDispatch();
   const {AsyncSetItem, AsyncGetItem, AsyncRemoveItem} = AsyncStorageFunction();
   const getUserData = async token => {
-    // console.log('Am I running');
-    const response = await fetch(`${API_LINK}/api/user?accessToken=${token}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
-    if (data?.status === 200) {
-      dispatch(saveUserData(data?.user));
-    } else if (data?.status !== 400) {
-      Toast.show({
-        type: 'error',
-        text1: 'Something went wrong',
-      });
+    console.log('Am I running', token);
+    if (token) {
+      const response = await fetch(
+        `${API_LINK}/api/user?accessToken=${token}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const data = await response.json();
+      console.log('GetingUserData:', data);
+      if (data?.status === 200) {
+        dispatch(saveUserData(data?.user));
+      } else if (data?.status !== 200) {
+        Toast.show({
+          type: 'error',
+          text1: 'Something went wrong',
+        });
+      }
+      return data;
     }
-    return data;
   };
   const login = async (email, password) => {
     try {
@@ -63,11 +69,6 @@ const useAuth = () => {
         Toast.show({
           type: 'error',
           text1: 'Invalid credentials',
-        });
-      } else {
-        Toast.show({
-          type: 'error',
-          text1: 'Something went wrong',
         });
       }
     } catch (error) {
@@ -250,18 +251,14 @@ const useAuth = () => {
         }),
       });
       const data = await response.json();
-      // const responseText = await response.text();
-      // console.log(responseText);
-      // const data = JSON.parse(responseText);
 
-      // console.log('Parsed data:', data);
       if (data?.status === 200) {
         Toast.show({
           type: 'success',
           text1: 'Request submitted successfully',
         });
         navigation.goBack();
-      } else {
+      } else if (data?.status !== 200) {
         Toast.show({
           type: 'error',
           text1: 'Something went wrong',

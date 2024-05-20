@@ -73,5 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightGray,
     fontSize: widthToDp(5),
     maxHeight: widthToDp(150),
+    color: Colors.black,
   },
 });

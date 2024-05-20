@@ -11,9 +11,8 @@ const AsyncStorageFunction = () => {
   const AsyncGetItem = async key => {
     try {
       const value = await AsyncStorage.getItem(key);
-      if (value !== null) {
-        return value;
-      }
+
+      return value;
     } catch (error) {
       console.error('Error getting item from AsyncStorage:', error);
     }

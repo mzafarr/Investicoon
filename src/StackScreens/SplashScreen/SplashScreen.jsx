@@ -27,14 +27,22 @@ const Splashscreen = () => {
   };
   const fetchAccessToken = async () => {
     try {
-      const token = await AsyncGetItem(access_token);
-      // console.log(token);
-      await getUserData(token);
-      navigation.navigate('Tabs');
-      if (token) {
-      } else {
-        navigation.navigate('LoginScreen');
-      }
+      console.log('Before fetchAccessToken');
+      await AsyncGetItem(access_token)
+        .then(async token => {
+          console.log('After fetchAccessToken');
+
+          await getUserData(token).then(() => {
+            if (token) {
+              navigation.navigate('Tabs');
+            } else {
+              navigation.navigate('LoginScreen');
+            }
+          });
+        })
+        .catch(() => {
+          console.log('No token found');
+        });
     } catch (error) {
       console.log(error);
     }
