@@ -38,7 +38,6 @@ const ConfirmationModal = ({
             onPress={NegativeOnPress}
             TouchStyles={{
               width: widthToDp(30),
-              backgroundColor: Colors.red,
             }}
           />
           <PillButton
@@ -46,7 +45,7 @@ const ConfirmationModal = ({
             email={true}
             password={true}
             onPress={PositiveOnPress}
-            TouchStyles={{width: widthToDp(30)}}
+            TouchStyles={{width: widthToDp(30), backgroundColor: Colors.red}}
             loading={PositiveLoading}
           />
         </View>

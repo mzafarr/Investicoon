@@ -17,20 +17,16 @@ import CompanyViewScreen from '../StackScreens/CompanyViewScreen/CompanyViewScre
 import ChangePasswordScreen from '../StackScreens/ChangePasswordScreen/ChangePasswordScreen';
 import FeatureScreen from '../StackScreens/FeatureScreen/FeatureScreen';
 import {Platform, View} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
   return (
     <Tab.Navigator
-      sceneAnimationEnabled={true}
-      shifting={true}
       screenOptions={({route}) => ({
         headerShown: false,
-        gestureEnabled: true,
-        gestureDirection: 'horizontal',
         tabBarStyle: {
           height: Platform.OS === 'ios' ? widthToDp(20) : widthToDp(17),
           paddingBottom: Platform.OS === 'ios' ? widthToDp(5) : widthToDp(4),
@@ -67,7 +63,6 @@ function NavigationScreens() {
   return (
     <Stack.Navigator
       initialRouteName="Splashscreen"
-      gestureEnabled={true}
       screenOptions={{
         headerShown: false,
       }}>

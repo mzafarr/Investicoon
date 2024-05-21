@@ -28,21 +28,11 @@ const Splashscreen = () => {
   const fetchAccessToken = async () => {
     try {
       console.log('Before fetchAccessToken');
-      await AsyncGetItem(access_token)
-        .then(async token => {
-          console.log('After fetchAccessToken');
+      await AsyncGetItem(access_token).then(async token => {
+        console.log('After fetchAccessToken');
 
-          await getUserData(token).then(() => {
-            if (token) {
-              navigation.navigate('Tabs');
-            } else {
-              navigation.navigate('LoginScreen');
-            }
-          });
-        })
-        .catch(() => {
-          console.log('No token found');
-        });
+        await getUserData(token);
+      });
     } catch (error) {
       console.log(error);
     }

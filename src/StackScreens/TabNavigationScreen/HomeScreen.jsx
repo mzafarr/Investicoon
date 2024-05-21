@@ -169,7 +169,7 @@ const HomeScreen = ({navigation}) => {
     : {
         vertical: false,
         width: windowWidth,
-        height: PAGE_WIDTH - heightToDp(10),
+        height: widthToDp(80),
       };
   const navigateToCompanyOverview = () => {
     navigation.navigate('CompanyViewScreen');

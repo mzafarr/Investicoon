@@ -41,7 +41,11 @@ const ChangePasswordScreen = () => {
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
-      <ScrollView contentContainerStyle={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={{
+          flex: 1,
+          marginHorizontal: Platform.OS === 'ios' ? widthToDp(0) : widthToDp(3),
+        }}>
         <HeaderBar />
         <View style={defaultStyles.container}>
           <Text style={[defaultStyles.header, {fontSize: widthToDp(10)}]}>

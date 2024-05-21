@@ -16,7 +16,54 @@ const HomeRowTab = ({companyData, onPress, graphData}) => {
           <Text style={styles.title}>{companyData.symbol}</Text>
           <Text style={styles.text}>{companyData.name}</Text>
         </View>
-        <View
+
+        <View style={styles.priceContainer}>
+          <Text style={styles.text}>{companyData.price}</Text>
+          <Text
+            style={[
+              styles.textsmall,
+              companyData.change > 0 ? {color: 'green'} : {color: 'red'},
+            ]}>
+            {companyData?.change}({companyData?.change_percent}%)
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.dark,
+    borderRadius: widthToDp(3),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: widthToDp(3),
+    padding: widthToDp(8),
+  },
+  title: {
+    fontSize: widthToDp(4.5),
+    fontWeight: 'bold',
+    color: Colors.white,
+  },
+
+  text: {
+    color: 'white',
+    fontSize: widthToDp(4),
+  },
+  textsmall: {
+    color: 'white',
+    fontSize: widthToDp(3.2),
+  },
+  priceContainer: {
+    alignItems: 'center',
+  },
+});
+
+export default HomeRowTab;
+{
+  /* <View
           style={{
             marginLeft: widthToDp(-15),
             paddingRight: widthToDp(2),
@@ -40,49 +87,5 @@ const HomeRowTab = ({companyData, onPress, graphData}) => {
             yAxisTextStyle={{color: 'transparent'}}
             xAxisColor="lightgray"
           />
-        </View>
-        <View style={styles.priceContainer}>
-          <Text style={styles.text}>{companyData.price}</Text>
-          <Text
-            style={[
-              styles.textsmall,
-              companyData.change > 0 ? {color: 'green'} : {color: 'red'},
-            ]}>
-            {companyData?.change}({companyData?.change_percent}%)
-          </Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.dark,
-    borderRadius: widthToDp(3),
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    margin: widthToDp(3),
-    paddingTop: widthToDp(2),
-  },
-  title: {
-    fontSize: widthToDp(4.5),
-    fontWeight: 'bold',
-    color: Colors.white,
-  },
-
-  text: {
-    color: 'white',
-    fontSize: widthToDp(4),
-  },
-  textsmall: {
-    color: 'white',
-    fontSize: widthToDp(3.2),
-  },
-  priceContainer: {
-    alignItems: 'center',
-  },
-});
-
-export default HomeRowTab;
+        </View> */
+}

@@ -17,7 +17,9 @@ const SubscriptionScreen = ({navigation}) => {
   const [typeSelect, setTypeSelected] = useState('Basic');
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: widthToDp(30)}}>
         <Text style={styles.title}>Choose Your Subscription</Text>
         <SubscriptionTypeCard
           isSelected={typeSelect === 'Basic'}

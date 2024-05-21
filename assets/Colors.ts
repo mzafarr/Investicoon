@@ -11,4 +11,5 @@ export default {
   logoBackground: '#bec1ca',
   green: '#00FF00',
   red: '#FF0000',
+  disabledButton: '#cccccc',
 };

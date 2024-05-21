@@ -61,7 +61,12 @@ const SignUpScreen = () => {
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
-      <ScrollView contentContainerStyle={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={{
+          flex: 1,
+          paddingBottom: widthToDp(10),
+          marginHorizontal: Platform.OS === 'ios' ? widthToDp(0) : widthToDp(3),
+        }}>
         <View style={defaultStyles.container}>
           <Text style={defaultStyles.header}>Let's get started!</Text>
           <Text style={defaultStyles.descriptionText}>
@@ -93,7 +98,6 @@ const SignUpScreen = () => {
           </TouchableOpacity>
 
           <View style={{flex: 1}} />
-
           <PillButton
             ButtonText="Sign up"
             email={email}
@@ -115,10 +119,10 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: Colors.lightGray,
-    padding: 20,
+    padding: widthToDp(3),
     borderRadius: 16,
-    fontSize: 20,
-    marginRight: 10,
+    fontSize: widthToDp(5),
+    marginRight: widthToDp(3),
   },
   enabled: {
     backgroundColor: Colors.primary,

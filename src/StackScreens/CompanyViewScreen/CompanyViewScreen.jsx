@@ -118,7 +118,10 @@ const CompanyViewScreen = ({}) => {
     <SafeAreaView style={styles.container}>
       <HeaderBar />
       <ScrollView
-        contentContainerStyle={{paddingBottom: widthToDp(15)}}
+        contentContainerStyle={{
+          paddingBottom: widthToDp(15),
+          marginHorizontal: widthToDp(3),
+        }}
         showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>{company?.name}.</Text>
         <View style={styles.flexContainer}>

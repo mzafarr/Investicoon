@@ -18,6 +18,7 @@ import {defaultStyles} from '../../../assets/Styles';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import useAuth from '../../CustomHooks/useAuth/useAuth';
+import {widthToDp} from '../../utils/Responsive';
 const CELL_COUNT = 6;
 
 const OtpScreen = ({route}) => {
@@ -47,12 +48,13 @@ const OtpScreen = ({route}) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.background}}>
-      <View style={defaultStyles.container}>
-        <Text style={defaultStyles.header}>6-digit code</Text>
-        <Text style={defaultStyles.descriptionText}>
-          Code sent to phone unless you already have an account
-        </Text>
-
+      <View style={[defaultStyles.container]}>
+        <View style={{marginHorizontal: widthToDp(3)}}>
+          <Text style={defaultStyles.header}>6-digit code</Text>
+          <Text style={defaultStyles.descriptionText}>
+            Code sent to phone unless you already have an account
+          </Text>
+        </View>
         <CodeField
           ref={ref}
           {...props}
@@ -93,9 +95,10 @@ const OtpScreen = ({route}) => {
 const styles = StyleSheet.create({
   codeFieldRoot: {
     marginVertical: 20,
+    paddingHorizontal: widthToDp(2),
     marginLeft: 'auto',
     marginRight: 'auto',
-    gap: 12,
+    gap: widthToDp(2),
   },
   cellRoot: {
     width: 45,

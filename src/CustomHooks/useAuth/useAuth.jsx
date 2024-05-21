@@ -33,6 +33,7 @@ const useAuth = () => {
       console.log('GetingUserData:', data);
       if (data?.status === 200) {
         dispatch(saveUserData(data?.user));
+        navigation.navigate('Tabs');
       } else if (data?.status !== 200) {
         Toast.show({
           type: 'error',
@@ -40,6 +41,8 @@ const useAuth = () => {
         });
       }
       return data;
+    } else {
+      navigation.navigate('LoginScreen');
     }
   };
   const login = async (email, password) => {

@@ -19,11 +19,13 @@ export const defaultStyles = StyleSheet.create({
     borderRadius: widthToDp(15),
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: Platform.OS === 'ios' ? widthToDp(0) : widthToDp(3),
   },
   textLink: {
     color: Colors.primary,
     marginTop: widthToDp(5),
-    fontSize: 18,
+    fontSize: widthToDp(4),
+    marginLeft: widthToDp(3),
     fontWeight: '500',
   },
   descriptionText: {
