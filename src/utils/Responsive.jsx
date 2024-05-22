@@ -12,3 +12,11 @@ const heightToDp = number => {
 };
 const window = Dimensions.get('window');
 export {widthToDp, heightToDp, window};
+
+export const debounce = (func, wait) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+};

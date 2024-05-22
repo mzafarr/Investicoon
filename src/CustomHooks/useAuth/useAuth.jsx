@@ -34,7 +34,9 @@ const useAuth = () => {
       if (data?.status === 200) {
         dispatch(saveUserData(data?.user));
         navigation.navigate('Tabs');
-      } else if (data?.status !== 200) {
+      } else if (data?.status === 404) {
+        navigation.navigate('LoginScreen');
+      } else {
         Toast.show({
           type: 'error',
           text1: 'Something went wrong',
@@ -58,6 +60,7 @@ const useAuth = () => {
         }),
       });
       const data = await response.json();
+      console.log(data);
       if (data?.status === 200) {
         if (data?.access_token) {
           await AsyncSetItem(tokenName, data?.access_token);

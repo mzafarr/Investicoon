@@ -19,6 +19,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {useSharedValue} from 'react-native-reanimated';
 import {useWindowDimensions} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
+import {SelectList} from 'react-native-dropdown-select-list';
 const PAGE_WIDTH = window.width;
 
 const HomeScreen = ({navigation}) => {
@@ -177,12 +178,30 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
+  const [selected, setSelected] = useState('');
 
+  const ListData = [
+    {key: '1', value: 'Mobiles'},
+    {key: '2', value: 'Appliances'},
+    {key: '3', value: 'Cameras'},
+    {key: '4', value: 'Computers'},
+    {key: '5', value: 'Vegetables'},
+    {key: '6', value: 'Diary Products'},
+    {key: '7', value: 'Drinks'},
+  ];
+  const [show, setShow] = useState(true);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: widthToDp(15)}}>
+        <View focusable>
+          <SelectList
+            setSelected={val => setSelected(val)}
+            data={ListData}
+            save="value"
+          />
+        </View>
         <View
           style={{
             marginTop: widthToDp(3),
@@ -210,39 +229,6 @@ const HomeScreen = ({navigation}) => {
               </View>
             )}
           />
-          {/* <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingHorizontal: widthToDp(2),
-              gap: 10,
-            }}>
-            <HomeGraph
-              companyData={companyData}
-              graphData={ptData}
-              onPress={() => navigateToCompanyOverview()}
-            />
-            <HomeGraph
-              companyData={companyData}
-              graphData={ptData}
-              onPress={() => navigateToCompanyOverview()}
-            />
-            <HomeGraph
-              companyData={companyData}
-              graphData={ptData}
-              onPress={() => navigateToCompanyOverview()}
-            />
-            <HomeGraph
-              companyData={companyData}
-              graphData={ptData}
-              onPress={() => navigateToCompanyOverview()}
-            />
-            <HomeGraph
-              companyData={companyData}
-              graphData={ptData}
-              onPress={() => navigateToCompanyOverview()}
-            />
-          </ScrollView> */}
         </View>
         <View style={{marginTop: widthToDp(5)}}>
           <AnimatedBar />
